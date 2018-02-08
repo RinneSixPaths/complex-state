@@ -1,0 +1,33 @@
+.main-bg-wrapper {
+    background-size: cover;
+}
+
+.anima-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+}
+
+.greetings {
+    margin-top: 0px;
+    font-size: 5em;
+    font-family: 'Indie Flower';/*'Luxury Royale JF Regular';*/
+}
+
+.customer-text {
+    margin-top: 0px;
+    font-size: 4em;
+    font-family: 'Indie Flower';
+}
+
+.swipe-text {
+    margin-top: 0px;
+    font-size: 5em;
+    font-family: 'Indie Flower';
+}
+
+.customer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
