@@ -1,9 +1,12 @@
 .main-bg-wrapper {
     background-size: cover;
+    overflow: hidden;
 }
 
 .anima-wrapper {
     position: relative;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-around;
 }
@@ -30,4 +33,43 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.reg-wrapper {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    visibility: hidden;
+    /*background-color: white;*/
+    background-image: url(../img/reg.jpg);
+    background-size: cover;
+    background-position: center center;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.header {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    visibility: hidden;
+    background-color: rgb(0, 180, 195);
+    z-index: 2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.logo-text {
+    margin-top: 0px;
+    font-size: 5em;
+    color: white;
+    font-family: 'Indie Flower';/*'Luxury Royale JF Regular';*/
+}
+
+.menu-icon {
+    height: 50px;
+    width: 50px;
 }

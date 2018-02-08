@@ -7,9 +7,32 @@ $(document).ready(() => {
     animateAll();
 });
 
-$(document).bind('mousewheel',() => {
+$(document).bind('mousewheel', () => {
     
     console.log('Yah');
+    
+    if (window.event.deltaY > 0) {
+        Anima().animateBlock(".reg-wrapper", { delay : '2s', 
+                                                visibility: "visible",
+                                                swipePath: -$('.reg-wrapper').height() + 'px'
+                                                });
+    
+        Anima().animateBlock(".header", { delay : '0.5s', 
+                                        visibility: "visible",
+                                        swipePath: '0%'
+                                        });
+    } else {
+        Anima().animateBlock(".reg-wrapper", { delay : '0.5s', 
+                                                visibility: "hidden",
+                                                swipePath: window.innerHeight + 'px'
+                                                });
+    
+        Anima().animateBlock(".header", { delay : '0.5s', 
+                                        visibility: "hidden",
+                                        swipePath: '-100%'
+                                        });
+    }
+    
 });
 
 export const setupMainBg = img => {
@@ -17,6 +40,13 @@ export const setupMainBg = img => {
     return {
         height: window.innerHeight,
         backgroundImage: "url(" + img + ")"
+   }
+}
+
+export const setupHeader = _ => {
+    
+    return {
+        marginTop: '-100%'
    }
 }
 
@@ -31,7 +61,7 @@ function animateAll() {
     Anima().animateText(".customer-text", { delay : '2s', 
                                            visibility: "visible", 
                                            color: 'white', 
-                                           swipePath: window.innerHeight/2.5 + 'px'
+                                           swipePath: window.innerHeight/3.5 + 'px'
                                         });
     
     Anima().animateText(".swipe-text", { delay : '2s', 
@@ -66,5 +96,23 @@ export const Anima = _ => ({
             "margin-top": options.swipePath || '100px'
         });
         
+    },
+    
+    animateBlock: (targetClass, options) => {
+        $(targetClass).css({
+            "transition": "all " + (options.delay || '5s') + " ease"
+        });
+        
+        $(targetClass).css({
+            "visibility": options.visibility || 'hidden'
+        });
+        
+        $(targetClass).css({
+            "margin-top": options.swipePath || '100px'
+        });
+        
+        $(targetClass).css({
+            "box-shadow": "0 0 10px black"
+        });
     }
 })
