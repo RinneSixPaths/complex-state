@@ -161,7 +161,7 @@
 .footer {
     position: absolute;
     width: 100%;
-    height: 20%;
+    height: 10%;
     background-color: rgba(0, 180, 195, 0.56);
     z-index: 4;
     display: flex;

@@ -69,7 +69,7 @@ function applyEvents() {
         if ($('.footer').css('margin-top') == '0px') {
             Anima().animateBlock(".footer", { delay : '1s', 
                                                 visibility: "visible",
-                                                swipePath: -$('.header').height() + 'px'
+                                                swipePath: -$('.header').height()/2 + 'px'
                                             });
         } else {
             Anima().animateBlock(".footer", { delay : '0.3s', 
