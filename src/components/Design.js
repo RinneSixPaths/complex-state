@@ -22,11 +22,21 @@ export default class Design extends Component {
     render() {
         return (
                 <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
+                    <nav className="anima-navbar" >
+                        <a href="#">Some page</a>
+                        <a href="#">Some page</a>
+                        <a href="#">Some page</a>
+                        <a href="#">Some page</a>
+                        <a href="#" className="view-footer">View authors</a>
+                    </nav>
                     <header className="header" style={ setupHeader() }>
                         <p className="logo-text" >Rinne Six Paths</p>
                         <img src={menuIcon} className="menu-icon"/>
                     </header>
+                        
+                    
                     <div className="anima-wrapper">
+                        
                         <p className="greetings" >Rinne Six Paths</p>
                         <span className="customer-wrapper">
                             <span className="customer-text" >Become our lovely customer</span>
@@ -34,9 +44,52 @@ export default class Design extends Component {
                             <img src={swipe} className="wheel"/>
                         </span>
                     </div>
+                    
                     <div className="reg-wrapper" >
-                        
-                    </div>    
+                        <Col xs={3} md={3} className="log-in-column">
+                            <h1 className="enter-title">Register</h1>
+                            <div className="log-in-wrapper">
+                                <FormControl 
+                                    bsSize="large" 
+                                    type = "text"
+                                    placeholder="Enter your name">
+                                </FormControl>
+                                <FormControl
+                                    bsSize="large" 
+                                    type = "password"
+                                    placeholder="Enter your password">
+                                </FormControl>
+                                <FormControl
+                                    bsSize="large" 
+                                    type = "password"
+                                    placeholder="Confirm your password">
+                                </FormControl>
+                                <Button bsStyle="success" bsSize="large">Redister</Button>
+                            </div>
+                        </Col>
+                        <p>Or</p>
+                        <Col xs={3} md={3} className="log-in-column">
+                            <h1 className="enter-title">Enter</h1>
+                            <div className="log-in-wrapper">
+                                <FormControl 
+                                    bsSize="large" 
+                                    type = "text"
+                                    placeholder="Enter your name">
+                                </FormControl>
+                                <FormControl
+                                    bsSize="large" 
+                                    type = "password"
+                                    placeholder="Enter your password">
+                                </FormControl>
+                                <Button bsStyle="info" bsSize="large">Log In</Button>
+                            </div>
+                        </Col>
+                    </div>  
+                    <footer className="footer">
+                        <p>Designed by <span>Rinne</span></p>
+                        <p>Backend by <span>Artem</span></p>
+                        <p>Nothing by <span>Lesha</span></p>
+                    </footer>
                 </div>
         ) 
     }

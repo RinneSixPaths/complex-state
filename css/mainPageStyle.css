@@ -1,6 +1,7 @@
 .main-bg-wrapper {
     background-size: cover;
     overflow: hidden;
+    position: relative;
 }
 
 .anima-wrapper {
@@ -40,7 +41,6 @@
     width: 100%;
     height: 80%;
     visibility: hidden;
-    /*background-color: white;*/
     background-image: url(../img/reg.jpg);
     background-size: cover;
     background-position: center center;
@@ -50,16 +50,56 @@
     justify-content: space-around;
 }
 
+.reg-wrapper > p {
+    color: white;
+    font-family: 'Indie Flower';
+    font-size: 8em;
+    text-shadow: 0 0 5px rgb(0, 0, 0);
+}
+
 .header {
     position: absolute;
     width: 100%;
     height: 20%;
     visibility: hidden;
     background-color: rgb(0, 180, 195);
+    z-index: 3;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.anima-navbar {
+    position: absolute;
+    background-color: black;
+    width: 100%;
+    height: 10%;
+    visibility: hidden;
     z-index: 2;
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.anima-navbar > a {
+    color: white;
+    font-family: 'Indie Flower';
+    font-size: 2em;
+}
+
+.anima-navbar > a:focus {
+    text-decoration: none;
+    color: white;
+}
+
+.anima-navbar > a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.anima-navbar > a:hover {
+    text-decoration: none;
+    color: rgb(0, 180, 195);
 }
 
 .logo-text {
@@ -72,4 +112,70 @@
 .menu-icon {
     height: 50px;
     width: 50px;
+}
+
+.menu-icon:hover {
+    cursor: pointer;
+}
+
+.reg-wrapper > .log-in-column {
+    padding: 0;
+}
+
+.enter-title {
+    font-family: 'Indie Flower';
+    font-size: 3em;
+    color: white;
+    text-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+.log-in-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.log-in-wrapper {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px black;
+}
+
+.log-in-wrapper > input {
+    border-radius: 0px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: black;
+    font-family: 'Indie Flower';
+    font-size: 1.5em;
+}
+
+.log-in-wrapper > input:focus {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.log-in-wrapper > button {
+    border-radius: 0px;
+    background-color: rgba(0, 180, 195, 0.56);
+    border-color: rgba(0, 180, 195, 0.56);
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    background-color: rgba(0, 180, 195, 0.56);
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.footer > p {
+    font-size: 3em;
+    color: white;
+    font-family: 'Luxury Royale JF Regular';
+}
+
+.footer > p > span {
+    font-size: 1.5em;
+    color: #ffb57f;
 }

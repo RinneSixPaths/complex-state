@@ -1,9 +1,19 @@
-a {
+/*a {
     text-decoration: none;
     color: black;
 }
 
-div > .filter {
+a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    text-decoration: none;
+    color: black;
+}*/
+
+/*div > .filter {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,4 +78,4 @@ div > .selected {
 
 .move-task-button {
     width: 100%;
-}
+}*/
