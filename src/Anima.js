@@ -1,17 +1,82 @@
 import $ from './jquery-3.1.1.min';
 
-$(document).ready(() => {
-    
-    console.log('I am ready to animate!');
-    
-    applyEvents();
-    animateAll();
-});
+export function entry() {
+    $(document).ready(() => {
+
+        console.log('I am ready to animate!');
+
+        applyEvents();
+        animateAll();
+    });
+}
 
 $(document).bind('mousewheel', () => {
+    checkScrolled();
+});
+
+export function applyEvents() {
+    $('body').on('click', '.menu-icon', () => {
+        if ($('.anima-navbar').css('margin-top') == '0px') {
+            Anima().animateBlock(".anima-navbar", { delay : '1s', 
+                                                visibility: "visible",
+                                                swipePath: $('.header').height() + 'px'
+                                            });
+        } else {
+            Anima().animateBlock(".anima-navbar", { delay : '0.3s', 
+                                                    visibility: "hidden",
+                                                    swipePath: '0px'
+                                                });
+        }
+        
+    });
     
-    console.log('Yah');
+    $('body').on('click', '.view-footer', () => {
+        if ($('.footer').css('margin-top') == '0px') {
+            Anima().animateBlock(".footer", { delay : '1s', 
+                                                visibility: "visible",
+                                                swipePath: -$('.header').height()/1.5 + 'px'
+                                            });
+        } else {
+            Anima().animateBlock(".footer", { delay : '0.3s', 
+                                                visibility: "hidden",
+                                                swipePath: '0px'
+                                            });
+        }
+        
+    });
     
+    $('body').on('click', '.redirect-link', () => {
+        console.log('redirected');
+    });
+    
+}
+
+
+
+export const setupMainBg = img => {
+    
+    return {
+        height: window.innerHeight,
+        backgroundImage: "url(" + img + ")"
+   }
+}
+
+export const setupHeader = color => {
+    
+    return {
+        marginTop: '-100%',
+        backgroundColor: color,
+   }
+}
+
+export const setupBlankBlock = _ => {
+    
+    return {
+        height: window.innerHeight,
+   }
+}
+
+export function checkScrolled() {
     if (window.event.deltaY > 0) {
         deAnimateAll();
         Anima().animateBlock(".reg-wrapper", { delay : '2s', 
@@ -45,62 +110,10 @@ $(document).bind('mousewheel', () => {
                                             swipePath: '0px'
                                         });
     }
-    
-});
-
-function applyEvents() {
-    
-    $('.menu-icon').click(() => {
-        if ($('.anima-navbar').css('margin-top') == '0px') {
-            Anima().animateBlock(".anima-navbar", { delay : '1s', 
-                                                visibility: "visible",
-                                                swipePath: $('.header').height() + 'px'
-                                            });
-        } else {
-            Anima().animateBlock(".anima-navbar", { delay : '0.3s', 
-                                                    visibility: "hidden",
-                                                    swipePath: '0px'
-                                                });
-        }
-        
-    });
-    
-    $('.view-footer').click(() => {
-        if ($('.footer').css('margin-top') == '0px') {
-            Anima().animateBlock(".footer", { delay : '1s', 
-                                                visibility: "visible",
-                                                swipePath: -$('.header').height()/1.5 + 'px'
-                                            });
-        } else {
-            Anima().animateBlock(".footer", { delay : '0.3s', 
-                                                visibility: "hidden",
-                                                swipePath: '0px'
-                                            });
-        }
-        
-    });
-    
 }
 
 
-
-export const setupMainBg = img => {
-    
-    return {
-        height: window.innerHeight,
-        backgroundImage: "url(" + img + ")"
-   }
-}
-
-export const setupHeader = _ => {
-    
-    return {
-        marginTop: '-100%'
-   }
-}
-
-
-function animateAll() {
+export function animateAll() {
     Anima().animateText(".greetings", { delay : '1s', 
                                        visibility: "visible", 
                                        color: 'white', 

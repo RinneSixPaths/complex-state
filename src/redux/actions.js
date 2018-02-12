@@ -1,7 +1,7 @@
 //Actions
-export const ADD_NAME = 'ADD_NAME';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
-export const addName = name => ({
-    type: ADD_NAME,
-    payload: name
+export const setCurrentUser = userData => ({
+    type: SET_CURRENT_USER,
+    payload: userData
 })

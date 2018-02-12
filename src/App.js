@@ -1,8 +1,11 @@
-import React, { Component, PureComponent } from 'react';
-import { Router, Route } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { Component } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
 
-import Design from './components/Design';
+import './Anima';
+
+import MainPage from './components/MainPage';
+import Missions from './components/Missions';
+import Shinobies from './components/Shinobies';
 
 import "bootstrap/dist/css/bootstrap.css";
 import { ListGroup, ListGroupItem, Grid, Row, Col} from "react-bootstrap";
@@ -15,7 +18,11 @@ export default class App extends Component {
     
     render() {
         return (
-            <Design />
+            <Switch>
+              <Route exact path='/'  component={MainPage}/>
+              <Route path='/missions' component={Missions}/>
+              <Route path='/shinobies' component={Shinobies}/>
+            </Switch>
         )
     }
 }

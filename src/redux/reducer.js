@@ -1,29 +1,11 @@
-const initialState = {
-    categories: [{
-        categoryName: 'Dragons',
-        persons: [{name: 'odaving'}, 
-                {name: 'parturnaks'}, 
-                {name: 'alduin'}]
-    }, {
-        categoryName: 'Priests',
-        persons: [{name: 'krosis'},
-                {name: 'morokei'},
-                {name: 'zaan'}]
-    }, {
-        categoryName: 'Daedra',
-        persons: [{name: 'molag bal'},
-                {name: 'haermaus mora'}, 
-                {name: 'mehrunes dagon'}]
-    }]
-};
+import {initialState} from './initialState';
 
 export default function toDoListReducer(state = initialState, action) {
     switch(action.type) {
-        case 'ADD_NAME': {
-            console.log(state.categories.inde)
+        case 'SET_CURRENT_USER': {
             return {
                 ...state,
-                categories: [...state.categories]
+                currentUser: {...action.payload}
             }
         }
         
