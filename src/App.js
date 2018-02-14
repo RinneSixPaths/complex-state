@@ -10,7 +10,7 @@ import Missions from './components/Missions';
 import Shinobies from './components/Shinobies';
 
 import "bootstrap/dist/css/bootstrap.css";
-import { ListGroup, ListGroupItem, Grid, Row, Col} from "react-bootstrap";
+import { ListGroup, ListGroupItem, Grid, Row, Col } from "react-bootstrap";
 
 const currentUser = localStorage.getItem('user');
 
