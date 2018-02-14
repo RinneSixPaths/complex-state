@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Router, Route, Link } from 'react-router-dom';
 import { setupMainBg, setupHeader, entry } from '../Anima';
-
-import { setCurrentUser } from '../redux/actions';
 
 import mainBg from '../../img/firewatch.jpg';
 import swipe from '../../img/swipe.png';
@@ -16,17 +13,13 @@ import { FormControl, Button, Col } from "react-bootstrap";
 import Header from './Header/Header';
 import Navigator from './Navigator/Navigator';
 import Footer from './Footer/Footer';
+import LogIn from './LogIn/LogIn';
+import LogOut from './LogOut/LogOut';
 
 const pageColor = 'rgb(0, 180, 195)';
 
 const mapStateToProps = state => {
     return { userName: state.currentUser.name };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        setCurrentUser: userData => dispatch(setCurrentUser(userData))
-    };
 };
 
 class MainPageView extends Component {
@@ -35,7 +28,6 @@ class MainPageView extends Component {
         super(props);
         
         this.register = this.register.bind(this);
-        this.logIn = this.logIn.bind(this);
     }
     
     componentDidMount() {
@@ -60,33 +52,13 @@ class MainPageView extends Component {
              });
     }
     
-    logIn() {
-        const payload = {userName: 'New User'},
-              URL = '/user?param=val&username=myName';
-        const queryConfig = {
-            method: 'GET'
-        };
-        
-        fetch(URL, queryConfig)
-            .then(response => (response.json()))
-            .then(data => {
-                console.log(data);
-                /*EXPERIMENTAL AREA*/    
-                
-                this.props.setCurrentUser(data);
-            });
-    }
-    
     render() {
         
         return (
                 <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
                     <Navigator className="main"/>
                     <Header style={ setupHeader(pageColor) }/>
-                        
-                    
-                    <div className="anima-wrapper">
-                        
+                    <div className="anima-wrapper">                
                         <p className="greetings" >Rinne Six Paths</p>
                         <span className="customer-wrapper">
                             <span className="customer-text" >Become our lovely customer</span>
@@ -94,7 +66,6 @@ class MainPageView extends Component {
                             <img src={swipe} className="wheel"/>
                         </span>
                     </div>
-                    
                     <div className="reg-wrapper" >
                         <Col xs={3} md={3} className="log-in-column">
                             <h1 className="enter-title">Register</h1>
@@ -117,23 +88,18 @@ class MainPageView extends Component {
                                 <Button bsStyle="success" bsSize="large" onClick={this.register}>Register</Button>
                             </div>
                         </Col>
-                        <p>Or</p>
-                        <Col xs={3} md={3} className="log-in-column">
-                            <h1 className="enter-title">Enter</h1>
-                            <div className="log-in-wrapper">
-                                <FormControl 
-                                    bsSize="large" 
-                                    type = "text"
-                                    placeholder="Enter your name">
-                                </FormControl>
-                                <FormControl
-                                    bsSize="large" 
-                                    type = "password"
-                                    placeholder="Enter your password">
-                                </FormControl>
-                                <Button bsStyle="info" bsSize="large" onClick={this.logIn}>Log In</Button>
-                            </div>
-                        </Col>
+                        <p>Or</p>  
+                        {(() => {
+                            if (!this.props.userName) {
+                                return (
+                                    <LogIn />
+                                )
+                            } else {
+                                return (
+                                    <LogOut />
+                                )    
+                            }
+                        })()} 
                     </div>
                     <Footer />
                 </div>
@@ -141,5 +107,5 @@ class MainPageView extends Component {
     }
 }
 
-const MainPage = connect(mapStateToProps, mapDispatchToProps)(MainPageView);
+const MainPage = connect(mapStateToProps)(MainPageView);
 export default MainPage;

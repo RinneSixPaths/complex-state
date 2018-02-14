@@ -31,7 +31,7 @@ app.post('/register', function(req, res) {
 app.get('/user', function(req, res) {
   console.log('got user-request');
     console.log(req.query.username);
-  res.json({name: 'Some Username'});
+  res.json({name: 'Hokage'});
 });
 
 app.listen(3000, function(err) {
