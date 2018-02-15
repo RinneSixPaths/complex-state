@@ -33,10 +33,6 @@ body {
     color: black;
 }
 
-/*td {
-    font-family: 'Indie Flower';
-}*/
-
 .td-mission-container > div {
     display: flex;
     align-items: center;
@@ -55,4 +51,17 @@ body {
 
 .td-mission-container > div > button {
     border-radius: 0px;
+}
+
+.table-titile {
+	font-family: 'Indie Flower';
+	font-size: 2em;
+}
+
+.view-description:hover {
+	cursor: pointer;
+}
+
+tr > .view-description {
+	padding: 0;
 }

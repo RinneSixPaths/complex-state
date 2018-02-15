@@ -38,7 +38,7 @@ body {
     justify-content: center;
 }
 
-.th-shinobi-container > div {
+.centrify-title {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,4 +50,18 @@ body {
 
 .td-shinobi-container > div > button {
     border-radius: 0px;
+}
+
+.table-titile {
+	font-family: 'Indie Flower';
+	font-size: 2em;
+}
+
+.view-description > div:hover {
+	cursor: pointer;
+}
+
+.view-description > div {
+	height: 100%;
+	padding: 8px;
 }
