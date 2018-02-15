@@ -1,4 +1,4 @@
 //App state
 export const initialState = {
-    currentUser: ''
+    currentUser: {}
 };

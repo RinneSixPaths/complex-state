@@ -31,8 +31,8 @@ export default class Shinobies extends Component {
     }
     
     readMoreClick(e) {
-		const clickedNode = (e.target.children[0] || e.target),
-			  currentText = clickedNode.textContent;
+		const clickedNode = (e.target.children[0] || e.target);
+		const currentText = clickedNode.textContent;
 		
 		if (currentText == blankDescriptionTemplate) {
 			clickedNode.textContent = description;

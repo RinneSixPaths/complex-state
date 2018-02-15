@@ -7,6 +7,25 @@ var bodyParser = require('body-parser');
 var app = express();
 var compiler = webpack(config);
 
+var mockMissions = [{
+	rank: 'S',
+	cost: '1000 $',
+	stage: 'Verified',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+},
+{
+	rank: 'B',
+	cost: '100 yen',
+	stage: 'In Progress',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+},
+{
+	rank: 'D',
+	cost: '5 $',
+	stage: 'Done',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+}]
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -18,7 +37,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -31,7 +50,7 @@ app.post('/register', function(req, res) {
 app.get('/user', function(req, res) {
   console.log('got user-request');
     console.log(req.query.username);
-  res.json({name: 'Hokage'});
+  res.json({name: 'Hokage', balance: 5000, missions: mockMissions});
 });
 
 app.listen(3000, function(err) {

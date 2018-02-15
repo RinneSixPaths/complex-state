@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router-dom';
 
 import mainBg from '../../img/night.jpg';
@@ -19,7 +20,11 @@ const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
 const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like';
 
-export default class Missions extends Component {
+const mapStateToProps = state => {
+    return { missions: state.currentUser.missions };
+};
+
+class MissionsView extends Component {
     
     constructor(props) {
         super(props);
@@ -32,8 +37,8 @@ export default class Missions extends Component {
     }
 	
 	readMoreClick(e) {
-		const clickedNode = (e.target.children[0] || e.target),
-			  currentText = clickedNode.textContent;
+		const clickedNode = (e.target.children[0] || e.target);
+		const currentText = clickedNode.textContent;
 		
 		if (currentText == blankDescriptionTemplate) {
 			clickedNode.textContent = description;
@@ -43,6 +48,7 @@ export default class Missions extends Component {
     }
     
     render() {
+		console.log(this.props.missions);
         return (
             <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
                 <Navigator className="night"/>
@@ -56,8 +62,8 @@ export default class Missions extends Component {
                         <tr>
                           <th className="th-mission-container"><div>Rank</div></th>
                           <th className="th-mission-container"><div>Cost</div></th>
-                          <th className="th-mission-container"><div>Description</div></th>
                           <th className="th-mission-container"><div>Stage</div></th>
+                          <th className="th-mission-container"><div>Description</div></th>
                           <th className="th-mission-container"><div>Edit</div></th>
                           <th className="th-mission-container"><div>Delete</div></th>
                         </tr>
@@ -107,3 +113,6 @@ export default class Missions extends Component {
         ) 
     }
 }
+
+const Missions = connect(mapStateToProps)(MissionsView);
+export default Missions;

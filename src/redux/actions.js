@@ -9,4 +9,4 @@ export const setCurrentUser = userData => ({
 
 export const removeCurrentUser = _ => ({
     type: REMOVE_CURRENT_USER
-})
+});

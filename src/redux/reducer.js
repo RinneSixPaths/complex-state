@@ -12,7 +12,7 @@ export default function toDoListReducer(state = initialState, action) {
         case 'REMOVE_CURRENT_USER': {
             return {
                 ...state,
-                currentUser: ''
+                currentUser: {}
             }
         }
         
