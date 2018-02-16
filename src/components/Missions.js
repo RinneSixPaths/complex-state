@@ -20,6 +20,25 @@ const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
 const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like';
 
+const mockMissions = [{
+	rank: 'S',
+	cost: '1000 $',
+	stage: 'Verified',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+},
+{
+	rank: 'B',
+	cost: '100 yen',
+	stage: 'In Progress',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+},
+{
+	rank: 'D',
+	cost: '5 $',
+	stage: 'Done',
+	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+}];
+
 const mapStateToProps = state => {
     return { missions: state.currentUser.missions };
 };
@@ -48,7 +67,9 @@ class MissionsView extends Component {
     }
     
     render() {
-		console.log(this.props.missions);
+		//this.props.missions USE THIS WHEN RESPONSE COMES
+		const missions = mockMissions;
+		
         return (
             <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
                 <Navigator className="night"/>
@@ -106,6 +127,24 @@ class MissionsView extends Component {
                           <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
                         </tr>
                       </tbody>
+					  <thead>
+                        <tr>
+                          <th className="th-mission-container"><div>Exel</div></th>
+                          <th className="th-mission-container"><div>PDF</div></th>
+                          <th className="th-mission-container"><div>CSV</div></th>
+                          <th className="th-mission-container" colSpan="3"><div>Add new mission</div></th>
+                        </tr>
+                      </thead>
+						<tbody>
+						   <tr>
+							  <td className="td-mission-container" ><div><Button bsStyle="success" bsSize="large">Exel</Button></div></td>
+							  <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">PDF</Button></div></td>
+							  <td className="td-mission-container" ><div><Button bsStyle="warning" bsSize="large">CSV</Button></div></td>
+							  <td className="td-mission-container" colSpan="3">
+								  <div><Button bsStyle="success" bsSize="large">Add new</Button></div>
+							 </td>
+						  </tr>
+						</tbody>
                     </Table>
                 </div>
                 <Footer />
