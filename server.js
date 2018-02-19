@@ -37,7 +37,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
+app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -47,10 +47,22 @@ app.post('/register', function(req, res) {
   res.json({name: 'anton'});
 });
 
-app.post('/mission', function(req, res) {
+app.post('/addMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json({stage: 'added'});
+});
+
+app.post('/updateMission', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json({stage: 'updated'});
+});
+
+app.post('/deleteMission', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json({stage: 'deleted'});
 });
 
 app.get('/user', function(req, res) {

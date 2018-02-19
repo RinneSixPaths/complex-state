@@ -19,7 +19,6 @@ import Footer from './Footer/Footer';
 
 const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
-const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like';
 
 const mockMissions = [{
 	rank: 'S',
@@ -60,7 +59,9 @@ class MissionsView extends Component {
 		
         this.state = {
             show: false,
-            description: 'Some description'
+            editing: false,
+            description: 'Some description',
+            clickedMission: 0
         };
 		this.readMoreClick = this.readMoreClick.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -71,6 +72,8 @@ class MissionsView extends Component {
         this.onRankSelect = this.onRankSelect.bind(this);
         this.onDescptionInput = this.onDescptionInput.bind(this);
         this.editMission = this.editMission.bind(this);
+        this.handleEditShow = this.handleEditShow.bind(this);
+        this.deleteMission = this.deleteMission.bind(this);
     }
     
     componentDidMount () {
@@ -82,21 +85,38 @@ class MissionsView extends Component {
 		const currentText = clickedNode.textContent;
 		
 		if (currentText == blankDescriptionTemplate) {
-			clickedNode.textContent = description;
+			clickedNode.textContent = clickedNode.getAttribute('data-desc');
 		} else {
 			clickedNode.textContent = blankDescriptionTemplate;
 		}
     }
     
     handleClose () {
-        this.setState({ show: false, description: 'Some description' });
+        this.setState({ 
+            show: false, 
+            description: 'Some description',
+            editing: false,
+            clickedMission: 0
+        });
         this._rank = '';
         this._price = 10;
         this._sensei = '';
     }
 
     handleShow () {
-      this.setState({ show: true });
+      this.setState({
+          ...this.state,
+          show: true
+      });
+    }
+
+    handleEditShow (index) {
+      this.setState({ 
+          ...this.state,
+          show: true,
+          editing: true,
+          clickedMission: index
+      });
     }
     
     addNewMission (e) {
@@ -119,11 +139,13 @@ class MissionsView extends Component {
             body: JSON.stringify(payload)
         };
         
-        fetch('/mission', queryConfig)
-             .then(response => (response.json()))
-             .then(data => {
-                 console.log(data);
-             });
+        fetch('/addMission', queryConfig)
+            .then(response => (
+                response.json()
+            ))
+            .then(data => {
+                console.log(data);
+            });
         this.handleClose();
     }
     
@@ -146,10 +168,35 @@ class MissionsView extends Component {
         });
     }
 
-    editMission (e) {
+    deleteMission (index) {
         const payload = {
             user: store.getState().currentUser,
-            mission: {
+            deleteMissionIndx: index
+        };
+        const queryConfig = {
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        };
+        
+        fetch('/deleteMission', queryConfig)
+            .then(response => (
+                response.json()
+            ))
+            .then(data => {
+                console.log(data);
+            });
+        this.handleClose();
+    }
+
+    editMission () {
+        const payload = {
+            user: store.getState().currentUser,
+            oldMissionIndx: this.state.clickedMission,
+            newMission: {
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,
@@ -166,11 +213,13 @@ class MissionsView extends Component {
             body: JSON.stringify(payload)
         };
         
-        fetch('/mission', queryConfig)
-             .then(response => (response.json()))
-             .then(data => {
-                 console.log(data);
-             });
+        fetch('/updateMission', queryConfig)
+            .then(response => (
+                response.json()
+            ))
+            .then(data => {
+                console.log(data);
+            });
         this.handleClose();
     }
     
@@ -207,12 +256,12 @@ class MissionsView extends Component {
                               <td className="td-mission-container"><div>{mission.price}</div></td>
                               <td className="td-mission-container"><div>{mission.stage}</div></td>
                               <td className="td-mission-container view-description" onClick={this.readMoreClick}>
-                                  <div>
+                                  <div data-desc={mission.description}>
                                     {blankDescriptionTemplate}
                                   </div>
                               </td>
-                              <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large" onClick={this.handleShow}>Edit</Button></div></td>
-                              <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
+                              <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large" onClick={() => {this.handleEditShow(index)}}>Edit</Button></div></td>
+                              <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large" onClick={() => {this.deleteMission(index)}}>Delete</Button></div></td>
                             </tr>
                         ))}
                       </tbody>
@@ -267,7 +316,7 @@ class MissionsView extends Component {
                             </FormControl>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button bsStyle="success" onClick={this.addNewMission}>Done</Button>
+                            <Button bsStyle="success" onClick={this.state.editing ? this.editMission : this.addNewMission}>Done</Button>
                           </Modal.Footer>
                     </Modal>
                 </div>
