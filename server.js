@@ -68,7 +68,7 @@ app.post('/deleteMission', function(req, res) {
 app.get('/user', function(req, res) {
   console.log('got user-request');
     console.log(req.query.username);
-  res.json({name: 'Hokage', missions: mockMissions});
+  res.json({name: 'Hokage', isAdmin: true, missions: mockMissions});
 });
 
 app.listen(3000, function(err) {

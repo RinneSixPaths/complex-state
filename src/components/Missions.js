@@ -46,7 +46,7 @@ const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 const mapStateToProps = state => {
     return { missions: state.currentUser.missions };
 };
-
+//RETURN UPDATED USER ONLY
 class MissionsView extends Component {
     
     _sensei = '';
@@ -231,62 +231,158 @@ class MissionsView extends Component {
 		const ranks = mockRanks;
 		
         return (
-            <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
+            <div className="main-bg-wrapper" style={setupMainBg(mainBg)}>
                 <Navigator className="night"/>
-                <Header style={ setupHeader(pageColor) }/>
-                <div className="workfield" style={ setupBlankBlock() }>
+                <Header style={setupHeader(pageColor)}/>
+                <div className="workfield" style={setupBlankBlock()}>
                     <Table className="table-mission-container" responsive>
                       <thead>
 						<tr>
-                          <th className="th-mission-container table-titile" colSpan="6"><div>Missions</div></th>
+                          <th className="th-mission-container table-titile" colSpan="6">
+                              <div>Missions</div>
+                          </th>
                         </tr>
                         <tr>
-                          <th className="th-mission-container"><div>Rank</div></th>
-                          <th className="th-mission-container"><div>Price $</div></th>
-                          <th className="th-mission-container"><div>Stage</div></th>
-                          <th className="th-mission-container"><div>Description</div></th>
-                          <th className="th-mission-container"><div>Edit</div></th>
-                          <th className="th-mission-container"><div>Delete</div></th>
+                          <th className="th-mission-container">
+                              <div>
+                                Rank
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                Price $
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                Stage
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                Description
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                Edit
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                Delete
+                              </div>
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
                         {missions.map((mission, index) => (
                             <tr key={index}>
-                              <td className="td-mission-container"><div>{mission.rank}</div></td>
-                              <td className="td-mission-container"><div>{mission.price}</div></td>
-                              <td className="td-mission-container"><div>{mission.stage}</div></td>
+                              <td className="td-mission-container">
+                                  <div>
+                                    {mission.rank}
+                                  </div>
+                              </td>
+                              <td className="td-mission-container">
+                                  <div>
+                                    {mission.price}
+                                  </div>
+                              </td>
+                              <td className="td-mission-container">
+                                  <div>
+                                    {mission.stage}
+                                  </div>
+                              </td>
                               <td className="td-mission-container view-description" onClick={this.readMoreClick}>
                                   <div data-desc={mission.description}>
                                     {blankDescriptionTemplate}
                                   </div>
                               </td>
-                              <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large" onClick={() => {this.handleEditShow(index)}}>Edit</Button></div></td>
-                              <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large" onClick={() => {this.deleteMission(index)}}>Delete</Button></div></td>
+                              <td className="td-mission-container">
+                                  <div>
+                                      <Button 
+                                          bsStyle="info" 
+                                          bsSize="large" 
+                                          onClick={() => {this.handleEditShow(index)}}>
+                                            Edit
+                                      </Button>
+                                  </div>
+                              </td>
+                              <td className="td-mission-container">
+                                  <div>
+                                      <Button 
+                                          bsStyle="danger" 
+                                          bsSize="large" 
+                                          onClick={() => {this.deleteMission(index)}}>
+                                            Delete
+                                      </Button>
+                                  </div>
+                                </td>
                             </tr>
                         ))}
                       </tbody>
 					  <thead>
                         <tr>
-                          <th className="th-mission-container"><div>Exel</div></th>
-                          <th className="th-mission-container"><div>PDF</div></th>
-                          <th className="th-mission-container"><div>CSV</div></th>
-                          <th className="th-mission-container" colSpan="3"><div>Add new mission</div></th>
+                          <th className="th-mission-container">
+                              <div>
+                                Exel
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                PDF
+                              </div>
+                          </th>
+                          <th className="th-mission-container">
+                              <div>
+                                CSV
+                              </div>
+                          </th>
+                          <th className="th-mission-container" colSpan="3">
+                              <div>
+                                Add new mission
+                              </div>
+                          </th>
                         </tr>
                       </thead>
 						<tbody>
 						   <tr>
-							  <td className="td-mission-container" ><div><Button bsStyle="success" bsSize="large">Exel</Button></div></td>
-							  <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">PDF</Button></div></td>
-							  <td className="td-mission-container" ><div><Button bsStyle="warning" bsSize="large">CSV</Button></div></td>
+							  <td className="td-mission-container" >
+                                  <div>
+                                      <Button bsStyle="success" bsSize="large">
+                                          Exel
+                                      </Button>
+                                  </div>
+                              </td>
+							  <td className="td-mission-container">
+                                  <div>
+                                    <Button bsStyle="danger" bsSize="large">
+                                        PDF
+                                    </Button>
+                                  </div>
+                              </td>
+							  <td className="td-mission-container" >
+                                  <div>
+                                    <Button bsStyle="warning" bsSize="large">
+                                        CSV
+                                    </Button>
+                                  </div>
+                              </td>
 							  <td className="td-mission-container" colSpan="3">
-								  <div><Button bsStyle="success" bsSize="large" onClick={this.handleShow}>Add new</Button></div>
+								  <div>
+                                    <Button bsStyle="success" bsSize="large" onClick={this.handleShow}>
+                                        Add new
+                                    </Button>
+                                 </div>
 							 </td>
 						  </tr>
 						</tbody>
                     </Table>
                      <Modal show={this.state.show} onHide={this.handleClose}>
                       <Modal.Header closeButton>
-                        <Modal.Title>Mission</Modal.Title>
+                        <Modal.Title>
+                          Mission
+                        </Modal.Title>
                       </Modal.Header>
                          <Modal.Body>
                             <p>
@@ -294,17 +390,23 @@ class MissionsView extends Component {
                             </p>
                             <DropdownButton title="Rank" bsStyle="default" id="1" bsSize="large">
                               {ranks.map((item, index) => (
-                                    <MenuItem eventKey={item} key={index} onSelect={this.onRankSelect}>{item}</MenuItem>
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onRankSelect}>
+                                        {item}
+                                    </MenuItem>
                                 ))}
                             </DropdownButton>
                             <DropdownButton title="Price" bsStyle="default" id="2" bsSize="large">
                               {prices.map((item, index) => (
-                                    <MenuItem eventKey={item} key={index} onSelect={this.onPriceSelect}>{item}</MenuItem>
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onPriceSelect}>
+                                        {item}
+                                    </MenuItem>
                                 ))}
                             </DropdownButton>
                             <DropdownButton title="Sensei" bsStyle="default" id="2" bsSize="large">
                                 {senseis.map((item, index) => (
-                                    <MenuItem eventKey={item} key={index} onSelect={this.onSenseiSelect}>{item}</MenuItem>
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onSenseiSelect}>
+                                        {item}
+                                    </MenuItem>
                                 ))}
                             </DropdownButton>
                             <FormControl
@@ -316,13 +418,20 @@ class MissionsView extends Component {
                             </FormControl>
                           </Modal.Body>
                           <Modal.Footer>
-                            <Button bsStyle="success" onClick={this.state.editing ? this.editMission : this.addNewMission}>Done</Button>
+                            <Button 
+                                    bsStyle="success" 
+                                    onClick={this.state.editing ? this.editMission : this.addNewMission}>
+                                Done
+                            </Button>
+                            <Button bsStyle="success" disabled>
+                                Ok
+                            </Button>
                           </Modal.Footer>
                     </Modal>
                 </div>
                 <Footer />
             </div>
-        ) 
+        )
     }
 }
 
