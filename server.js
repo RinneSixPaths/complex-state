@@ -47,10 +47,16 @@ app.post('/register', function(req, res) {
   res.json({name: 'anton'});
 });
 
+app.post('/mission', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json({stage: 'added'});
+});
+
 app.get('/user', function(req, res) {
   console.log('got user-request');
     console.log(req.query.username);
-  res.json({name: 'Hokage', balance: 5000, missions: mockMissions});
+  res.json({name: 'Hokage', missions: mockMissions});
 });
 
 app.listen(3000, function(err) {

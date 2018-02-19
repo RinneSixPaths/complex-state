@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router-dom';
+import { store } from '../redux/store';
 
 import mainBg from '../../img/night.jpg';
 import swipe from '../../img/swipe.png';
@@ -10,7 +11,7 @@ import { setupMainBg, setupHeader, setupBlankBlock, entry } from '../Anima';
 import "../../css/missionStyle.css";
 import "../../css/fonts.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { FormControl, Button, Col, Table, Well } from "react-bootstrap";
+import { FormControl, Button, Col, Table, Well, Modal, DropdownButton, MenuItem } from "react-bootstrap";
 
 import Header from './Header/Header';
 import Navigator from './Navigator/Navigator';
@@ -22,22 +23,26 @@ const description = 'It is a long established fact that a reader will be distrac
 
 const mockMissions = [{
 	rank: 'S',
-	cost: '1000 $',
-	stage: 'Verified',
+	price: '1000 $',
+	stage: 'Done',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
 	rank: 'B',
-	cost: '100 yen',
+	price: '100 yen',
 	stage: 'In Progress',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
 	rank: 'D',
-	cost: '5 $',
+	price: '5 $',
 	stage: 'Done',
-	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+	description: 'test'
 }];
+
+const mockSenseis = ['Yoda', 'Skywalker', 'Snoke', 'Shifu', 'Hiruzen'];
+const mockPrices = [10, 100, 500, 1000, 5000, 10000];
+const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 
 const mapStateToProps = state => {
     return { missions: state.currentUser.missions };
@@ -45,17 +50,34 @@ const mapStateToProps = state => {
 
 class MissionsView extends Component {
     
-    constructor(props) {
+    _sensei = '';
+    _rank = '';
+    _price = 10;
+
+    
+    constructor (props) {
         super(props);
 		
+        this.state = {
+            show: false,
+            description: 'Some description'
+        };
 		this.readMoreClick = this.readMoreClick.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.addNewMission = this.addNewMission.bind(this);
+        this.onSenseiSelect = this.onSenseiSelect.bind(this);
+        this.onPriceSelect = this.onPriceSelect.bind(this);
+        this.onRankSelect = this.onRankSelect.bind(this);
+        this.onDescptionInput = this.onDescptionInput.bind(this);
+        this.editMission = this.editMission.bind(this);
     }
     
-    componentDidMount() {
+    componentDidMount () {
         entry();
     }
 	
-	readMoreClick(e) {
+	readMoreClick (e) {
 		const clickedNode = (e.target.children[0] || e.target);
 		const currentText = clickedNode.textContent;
 		
@@ -66,9 +88,98 @@ class MissionsView extends Component {
 		}
     }
     
+    handleClose () {
+        this.setState({ show: false, description: 'Some description' });
+        this._rank = '';
+        this._price = 10;
+        this._sensei = '';
+    }
+
+    handleShow () {
+      this.setState({ show: true });
+    }
+    
+    addNewMission (e) {
+        const payload = {
+            user: store.getState().currentUser,
+            mission: {
+                rank: this._rank,
+                price: this._price,
+                sensei: this._sensei,
+                stage: 'In Progress',
+                description: this.state.description
+            }
+        };
+        const queryConfig = {
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        };
+        
+        fetch('/mission', queryConfig)
+             .then(response => (response.json()))
+             .then(data => {
+                 console.log(data);
+             });
+        this.handleClose();
+    }
+    
+    onSenseiSelect (eventKey, e) {
+        this._sensei = eventKey;
+    }
+
+    onPriceSelect (eventKey, e) {
+        this._price = eventKey;
+    }
+    
+    onRankSelect (eventKey, e) {
+        this._rank = eventKey;
+    }
+
+    onDescptionInput (e) {
+        this.setState({
+            ...this.state,
+            description: e.target.value
+        });
+    }
+
+    editMission (e) {
+        const payload = {
+            user: store.getState().currentUser,
+            mission: {
+                rank: this._rank,
+                price: this._price,
+                sensei: this._sensei,
+                stage: 'In Progress',
+                description: this.state.description
+            }
+        };
+        const queryConfig = {
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        };
+        
+        fetch('/mission', queryConfig)
+             .then(response => (response.json()))
+             .then(data => {
+                 console.log(data);
+             });
+        this.handleClose();
+    }
+    
     render() {
 		//this.props.missions USE THIS WHEN RESPONSE COMES
 		const missions = mockMissions;
+		const senseis = mockSenseis;
+		const prices = mockPrices;
+		const ranks = mockRanks;
 		
         return (
             <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
@@ -82,7 +193,7 @@ class MissionsView extends Component {
                         </tr>
                         <tr>
                           <th className="th-mission-container"><div>Rank</div></th>
-                          <th className="th-mission-container"><div>Cost</div></th>
+                          <th className="th-mission-container"><div>Price $</div></th>
                           <th className="th-mission-container"><div>Stage</div></th>
                           <th className="th-mission-container"><div>Description</div></th>
                           <th className="th-mission-container"><div>Edit</div></th>
@@ -90,42 +201,20 @@ class MissionsView extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td className="td-mission-container"><div>S</div></td>
-                          <td className="td-mission-container"><div>1000 $</div></td>
-                          <td className="td-mission-container"><div>Verified</div></td>
-                          <td className="td-mission-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large">Edit</Button></div></td>
-                          <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
-                        <tr>
-                          <td className="td-mission-container"><div>B</div></td>
-                          <td className="td-mission-container"><div>100 yen</div></td>
-                          <td className="td-mission-container"><div>In Progress</div></td>
-                          <td className="td-mission-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large">Edit</Button></div></td>
-                          <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
-                        <tr>
-                          <td className="td-mission-container"><div>D</div></td>
-                          <td className="td-mission-container"><div>5 $</div></td>
-                          <td className="td-mission-container" ><div>Done</div></td>
-                          <td className="td-mission-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large">Edit</Button></div></td>
-                          <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
+                        {missions.map((mission, index) => (
+                            <tr key={index}>
+                              <td className="td-mission-container"><div>{mission.rank}</div></td>
+                              <td className="td-mission-container"><div>{mission.price}</div></td>
+                              <td className="td-mission-container"><div>{mission.stage}</div></td>
+                              <td className="td-mission-container view-description" onClick={this.readMoreClick}>
+                                  <div>
+                                    {blankDescriptionTemplate}
+                                  </div>
+                              </td>
+                              <td className="td-mission-container"><div><Button bsStyle="info" bsSize="large" onClick={this.handleShow}>Edit</Button></div></td>
+                              <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
+                            </tr>
+                        ))}
                       </tbody>
 					  <thead>
                         <tr>
@@ -141,11 +230,46 @@ class MissionsView extends Component {
 							  <td className="td-mission-container"><div><Button bsStyle="danger" bsSize="large">PDF</Button></div></td>
 							  <td className="td-mission-container" ><div><Button bsStyle="warning" bsSize="large">CSV</Button></div></td>
 							  <td className="td-mission-container" colSpan="3">
-								  <div><Button bsStyle="success" bsSize="large">Add new</Button></div>
+								  <div><Button bsStyle="success" bsSize="large" onClick={this.handleShow}>Add new</Button></div>
 							 </td>
 						  </tr>
 						</tbody>
                     </Table>
+                     <Modal show={this.state.show} onHide={this.handleClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Mission</Modal.Title>
+                      </Modal.Header>
+                         <Modal.Body>
+                            <p>
+                              Fill the fields before adding
+                            </p>
+                            <DropdownButton title="Rank" bsStyle="default" id="1" bsSize="large">
+                              {ranks.map((item, index) => (
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onRankSelect}>{item}</MenuItem>
+                                ))}
+                            </DropdownButton>
+                            <DropdownButton title="Price" bsStyle="default" id="2" bsSize="large">
+                              {prices.map((item, index) => (
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onPriceSelect}>{item}</MenuItem>
+                                ))}
+                            </DropdownButton>
+                            <DropdownButton title="Sensei" bsStyle="default" id="2" bsSize="large">
+                                {senseis.map((item, index) => (
+                                    <MenuItem eventKey={item} key={index} onSelect={this.onSenseiSelect}>{item}</MenuItem>
+                                ))}
+                            </DropdownButton>
+                            <FormControl
+                                    bsSize="large" 
+                                    type = "text"
+                                    placeholder="Enter description"
+                                    value = {this.state.description}
+                                    onChange={this.onDescptionInput}>
+                            </FormControl>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button bsStyle="success" onClick={this.addNewMission}>Done</Button>
+                          </Modal.Footer>
+                    </Modal>
                 </div>
                 <Footer />
             </div>
