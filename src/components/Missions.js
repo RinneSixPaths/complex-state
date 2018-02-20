@@ -6,12 +6,26 @@ import { store } from '../redux/store';
 import mainBg from '../../img/night.jpg';
 import swipe from '../../img/swipe.png';
 
-import { setupMainBg, setupHeader, setupBlankBlock, entry } from '../Anima';
+import { 
+    setupMainBg, 
+    setupHeader, 
+    setupBlankBlock, 
+    entry 
+} from '../Anima';
 
 import "../../css/missionStyle.css";
 import "../../css/fonts.css";
 import "bootstrap/dist/css/bootstrap.css";
-import { FormControl, Button, Col, Table, Well, Modal, DropdownButton, MenuItem } from "react-bootstrap";
+import { 
+    FormControl, 
+    Button,
+    Col,
+    Table,
+    Well, 
+    Modal,
+    DropdownButton,
+    MenuItem 
+} from "react-bootstrap";
 
 import Header from './Header/Header';
 import Navigator from './Navigator/Navigator';
@@ -21,18 +35,21 @@ const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
 
 const mockMissions = [{
+    id: 1,
 	rank: 'S',
 	price: '1000 $',
 	stage: 'Done',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
+    id: 2,
 	rank: 'B',
 	price: '100 yen',
 	stage: 'In Progress',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
+    id: 3,
 	rank: 'D',
 	price: '5 $',
 	stage: 'Done',
@@ -46,7 +63,8 @@ const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 const mapStateToProps = state => {
     return { missions: state.currentUser.missions };
 };
-//RETURN UPDATED USER ONLY
+//RETURN UPDATED USER ONLY for this add actions to props
+//Do we need mission Stage?
 class MissionsView extends Component {
     
     _sensei = '';
@@ -61,7 +79,7 @@ class MissionsView extends Component {
             show: false,
             editing: false,
             description: 'Some description',
-            clickedMission: 0
+            clickedMission: null
         };
 		this.readMoreClick = this.readMoreClick.bind(this);
         this.handleShow = this.handleShow.bind(this);
@@ -74,6 +92,9 @@ class MissionsView extends Component {
         this.editMission = this.editMission.bind(this);
         this.handleEditShow = this.handleEditShow.bind(this);
         this.deleteMission = this.deleteMission.bind(this);
+        this.generateMissionsPdf = this.generateMissionsPdf.bind(this);
+        this.generateMissionsExel = this.generateMissionsExel.bind(this);
+        this.generateMissionsCsv = this.generateMissionsCsv.bind(this);
     }
     
     componentDidMount () {
@@ -96,7 +117,7 @@ class MissionsView extends Component {
             show: false, 
             description: 'Some description',
             editing: false,
-            clickedMission: 0
+            clickedMission: null
         });
         this._rank = '';
         this._price = 10;
@@ -110,12 +131,12 @@ class MissionsView extends Component {
       });
     }
 
-    handleEditShow (index) {
+    handleEditShow (mission) {
       this.setState({ 
           ...this.state,
           show: true,
           editing: true,
-          clickedMission: index
+          clickedMission: mission
       });
     }
     
@@ -168,10 +189,10 @@ class MissionsView extends Component {
         });
     }
 
-    deleteMission (index) {
+    deleteMission (mission) {
         const payload = {
             user: store.getState().currentUser,
-            deleteMissionIndx: index
+            missionID: mission.id
         };
         const queryConfig = {
             method: 'POST', 
@@ -195,12 +216,12 @@ class MissionsView extends Component {
     editMission () {
         const payload = {
             user: store.getState().currentUser,
-            oldMissionIndx: this.state.clickedMission,
+            oldMissionIndx: this.state.clickedMission.id,
             newMission: {
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,
-                stage: 'In Progress',
+                stage: this.state.clickedMission.stage,
                 description: this.state.description
             }
         };
@@ -222,10 +243,49 @@ class MissionsView extends Component {
             });
         this.handleClose();
     }
+
+    generateMissionsPdf () {
+        const URL = '/generateMissionsPdf';
+        const queryConfig = {
+            method: 'GET'
+        };
+        
+        fetch(URL, queryConfig)
+            .then(response => (response.json()))
+            .then(data => {
+                console.log(data);
+            });
+    }
+
+    generateMissionsExel () {
+        const URL = '/generateMissionsExel';
+        const queryConfig = {
+            method: 'GET'
+        };
+        
+        fetch(URL, queryConfig)
+            .then(response => (response.json()))
+            .then(data => {
+                console.log(data);
+            });
+    }
+
+    generateMissionsCsv () {
+        const URL = '/generateMissionsCsv';
+        const queryConfig = {
+            method: 'GET'
+        };
+        
+        fetch(URL, queryConfig)
+            .then(response => (response.json()))
+            .then(data => {
+                console.log(data);
+            });
+    }
     
     render() {
 		//this.props.missions USE THIS WHEN RESPONSE COMES
-		const missions = mockMissions;
+		const missions = this.props.missions || [];
 		const senseis = mockSenseis;
 		const prices = mockPrices;
 		const ranks = mockRanks;
@@ -303,7 +363,7 @@ class MissionsView extends Component {
                                       <Button 
                                           bsStyle="info" 
                                           bsSize="large" 
-                                          onClick={() => {this.handleEditShow(index)}}>
+                                          onClick={() => {this.handleEditShow(mission)}}>
                                             Edit
                                       </Button>
                                   </div>
@@ -313,7 +373,7 @@ class MissionsView extends Component {
                                       <Button 
                                           bsStyle="danger" 
                                           bsSize="large" 
-                                          onClick={() => {this.deleteMission(index)}}>
+                                          onClick={() => {this.deleteMission( mission)}}>
                                             Delete
                                       </Button>
                                   </div>
@@ -349,28 +409,44 @@ class MissionsView extends Component {
 						   <tr>
 							  <td className="td-mission-container" >
                                   <div>
-                                      <Button bsStyle="success" bsSize="large">
+                                      <Button 
+                                              bsStyle="success" 
+                                              bsSize="large"       
+                                              disabled={!this.props.missions} 
+                                              onClick={this.generateMissionsExel}>
                                           Exel
                                       </Button>
                                   </div>
                               </td>
 							  <td className="td-mission-container">
                                   <div>
-                                    <Button bsStyle="danger" bsSize="large">
+                                    <Button 
+                                          bsStyle="danger" 
+                                          bsSize="large" 
+                                          disabled={!this.props.missions} 
+                                          onClick={this.generateMissionsPdf}>
                                         PDF
                                     </Button>
                                   </div>
                               </td>
 							  <td className="td-mission-container" >
                                   <div>
-                                    <Button bsStyle="warning" bsSize="large">
+                                    <Button 
+                                          bsStyle="warning" 
+                                          bsSize="large" 
+                                          disabled={!this.props.missions} 
+                                          onClick={this.generateMissionsCsv}>
                                         CSV
                                     </Button>
                                   </div>
                               </td>
 							  <td className="td-mission-container" colSpan="3">
 								  <div>
-                                    <Button bsStyle="success" bsSize="large" onClick={this.handleShow}>
+                                    <Button 
+                                          bsStyle="success" 
+                                          bsSize="large" 
+                                          onClick={this.handleShow} 
+                                          disabled={!this.props.missions}>
                                         Add new
                                     </Button>
                                  </div>
@@ -422,9 +498,6 @@ class MissionsView extends Component {
                                     bsStyle="success" 
                                     onClick={this.state.editing ? this.editMission : this.addNewMission}>
                                 Done
-                            </Button>
-                            <Button bsStyle="success" disabled>
-                                Ok
                             </Button>
                           </Modal.Footer>
                     </Modal>

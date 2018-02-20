@@ -8,18 +8,21 @@ var app = express();
 var compiler = webpack(config);
 
 var mockMissions = [{
+    id: 1,
 	rank: 'S',
 	cost: '1000 $',
 	stage: 'Verified',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
+    id: 2,
 	rank: 'B',
 	cost: '100 yen',
 	stage: 'In Progress',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
+    id: 3,
 	rank: 'D',
 	cost: '5 $',
 	stage: 'Done',
@@ -66,9 +69,24 @@ app.post('/deleteMission', function(req, res) {
 });
 
 app.get('/user', function(req, res) {
-  console.log('got user-request');
+    console.log('got user-request');
     console.log(req.query.username);
-  res.json({name: 'Hokage', isAdmin: true, missions: mockMissions});
+    res.json({name: 'Hokage', isAdmin: true, missions: mockMissions});
+});
+
+app.get('/generateMissionsPdf', function(req, res) {
+    console.log('got generate pdf request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateMissionsExel', function(req, res) {
+    console.log('got generate exel request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateMissionsCsv', function(req, res) {
+    console.log('got generate csv request');
+    res.json({generated: 'True'});
 });
 
 app.listen(3000, function(err) {

@@ -22,8 +22,7 @@ class LogInView extends Component {
     }
     
     logIn() {
-        const payload = {userName: 'New User'},
-              URL = '/user?param=val&username=myName';
+        const URL = '/user?param=val&username=myName';
         const queryConfig = {
             method: 'GET'
         };
