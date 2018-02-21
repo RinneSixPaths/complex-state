@@ -35,7 +35,12 @@ class MainPageView extends Component {
     }
     
     register() {
-        const payload = {userName: 'New User'};
+        const payload = {
+            name: 'Name',
+            password: '123',
+            isAdmin: false,
+            missions: []
+        };
         const queryConfig = {
             method: 'POST', 
             headers: {

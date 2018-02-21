@@ -154,7 +154,6 @@ class MissionsView extends Component {
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,
-                stage: 'In Progress',
                 description: this.state.description
             }
         };
@@ -235,7 +234,6 @@ class MissionsView extends Component {
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,
-                stage: this.state.clickedMission.stage,
                 description: this.state.description
             }
         };
@@ -300,7 +298,6 @@ class MissionsView extends Component {
     }
     
     render() {
-		//this.props.missions USE THIS WHEN RESPONSE COMES
 		const missions = this.props.missions || [];
 		const senseis = mockSenseis;
 		const prices = mockPrices;
@@ -331,7 +328,7 @@ class MissionsView extends Component {
                           </th>
                           <th className="th-mission-container">
                               <div>
-                                Stage
+                                Sensei
                               </div>
                           </th>
                           <th className="th-mission-container">
@@ -366,7 +363,7 @@ class MissionsView extends Component {
                               </td>
                               <td className="td-mission-container">
                                   <div>
-                                    {mission.stage}
+                                    {mission.sensei}
                                   </div>
                               </td>
                               <td className="td-mission-container view-description" onClick={this.readMoreClick}>

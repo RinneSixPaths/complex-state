@@ -11,21 +11,21 @@ var mockMissions = [{
     id: 1,
 	rank: 'S',
 	price: '1000 $',
-	stage: 'Verified',
+	sensei: 'Yoda',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
     id: 2,
 	rank: 'B',
 	price: '100 yen',
-	stage: 'In Progress',
+	sensei: 'Skywalker',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
     id: 3,
 	rank: 'D',
 	price: '5 $',
-	stage: 'Done',
+	sensei: 'Shifu',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 }];
 
@@ -40,7 +40,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('/', function(req, res) {
+app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -53,7 +53,7 @@ app.post('/register', function(req, res) {
 app.post('/addMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({name: 'Hokage', isAdmin: true, missions: [...mockMissions, {
+  res.json({name: 'Username*', isAdmin: true, missions: [...mockMissions, {
 		id: 4,
 		rank: 'D',
 		price: '300 $',
@@ -65,19 +65,19 @@ app.post('/addMission', function(req, res) {
 app.post('/updateMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({name: 'Hokage', isAdmin: true, missions: []});
+  res.json({name: 'Username*', isAdmin: true, missions: []});
 });
 
 app.post('/deleteMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({name: 'Hokage', isAdmin: true, missions: []});
+  res.json({name: 'Username*', isAdmin: true, missions: []});
 });
 
 app.get('/user', function(req, res) {
     console.log('got user-request');
     console.log(req.query.username);
-    res.json({name: 'Hokage', isAdmin: true, missions: mockMissions});
+    res.json({name: 'Username*', isAdmin: true, missions: mockMissions});
 });
 
 app.get('/generateMissionsPdf', function(req, res) {

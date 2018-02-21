@@ -22,7 +22,7 @@ class LogInView extends Component {
     }
     
     logIn() {
-        const URL = '/user?param=val&username=myName';
+        const URL = '/user?password=123&name=myName';
         const queryConfig = {
             method: 'GET'
         };
@@ -30,8 +30,7 @@ class LogInView extends Component {
         fetch(URL, queryConfig)
             .then(response => (response.json()))
             .then(data => {
-                console.log(data);
-                /*EXPERIMENTAL AREA*/    
+                console.log(data);   
                 
                 this.props.setCurrentUser(data);
                 localStorage.setItem('user', JSON.stringify(data));
