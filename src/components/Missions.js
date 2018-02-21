@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router-dom';
 import { store } from '../redux/store';
+import { setCurrentUser } from '../redux/actions';
 
 import mainBg from '../../img/night.jpg';
 import swipe from '../../img/swipe.png';
@@ -62,6 +63,12 @@ const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 
 const mapStateToProps = state => {
     return { missions: state.currentUser.missions };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setCurrentUser: userData => dispatch(setCurrentUser(userData))
+    };
 };
 //RETURN UPDATED USER ONLY for this add actions to props
 //Do we need mission Stage?
@@ -166,6 +173,8 @@ class MissionsView extends Component {
             ))
             .then(data => {
                 console.log(data);
+				this.props.setCurrentUser(data);
+                localStorage.setItem('user', JSON.stringify(data));
             });
         this.handleClose();
     }
@@ -508,5 +517,5 @@ class MissionsView extends Component {
     }
 }
 
-const Missions = connect(mapStateToProps)(MissionsView);
+const Missions = connect(mapStateToProps, mapDispatchToProps)(MissionsView);
 export default Missions;

@@ -10,21 +10,21 @@ var compiler = webpack(config);
 var mockMissions = [{
     id: 1,
 	rank: 'S',
-	cost: '1000 $',
+	price: '1000 $',
 	stage: 'Verified',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
     id: 2,
 	rank: 'B',
-	cost: '100 yen',
+	price: '100 yen',
 	stage: 'In Progress',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 },
 {
     id: 3,
 	rank: 'D',
-	cost: '5 $',
+	price: '5 $',
 	stage: 'Done',
 	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
 }];
@@ -53,7 +53,13 @@ app.post('/register', function(req, res) {
 app.post('/addMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({stage: 'added'});
+  res.json({name: 'Hokage', isAdmin: true, missions: [...mockMissions, {
+		id: 4,
+		rank: 'D',
+		price: '300 $',
+		stage: 'Done',
+		description: 'New added mission'
+	}]});
 });
 
 app.post('/updateMission', function(req, res) {
