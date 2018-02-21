@@ -259,16 +259,7 @@ class MissionsView extends Component {
     }
 
     generateMissionsPdf () {
-        const URL = '/generateMissionsPdf';
-        const queryConfig = {
-            method: 'GET'
-        };
-        
-        fetch(URL, queryConfig)
-            .then(response => (response.json()))
-            .then(data => {
-                console.log(data);
-            });
+		window.location = '/generateMissionsPdf';
     }
 
     generateMissionsExel () {

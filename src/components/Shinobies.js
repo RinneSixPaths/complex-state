@@ -32,7 +32,7 @@ const pageColor = 'rgb(255, 143, 31)';
 const blankDescriptionTemplate = 'Click to view description';
 const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like';
 //сенсей: ид профиля, имя, опыт (время), текущая миссия, список студентов
-const mockMissions = [{
+const mockShinobies = [{
     id: 1,
 	name: 'Yoda',
 	missionsCompleted: 65,
@@ -40,17 +40,15 @@ const mockMissions = [{
 },
 {
     id: 2,
-	rank: 'B',
-	price: '100 yen',
-	sensei: 'Skywalker',
-	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+	name: 'Yoda',
+	missionsCompleted: 65,
+	student: 'Some desc'
 },
 {
     id: 3,
-	rank: 'D',
-	price: '5 $',
-	sensei: 'Shifu',
-	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
+	name: 'Yoda',
+	missionsCompleted: 65,
+	student: 'Some desc'
 }];
 
 export default class Shinobies extends Component {
@@ -77,7 +75,7 @@ export default class Shinobies extends Component {
     }
     
     render() {
-        const missions = mockMissions;
+        const shinobies = mockShinobies;
         return (
             <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
                 <Navigator className="twilight"/>
@@ -87,26 +85,26 @@ export default class Shinobies extends Component {
                       <thead>
 						<tr>
                           <th className="th-shinobi-container table-titile" colSpan="6">
-                              <div>Test</div>
+                              <div>Senseis</div>
                           </th>
                         </tr>
                         <tr>
                           <th className="th-shinobi-container">
                               <div>
-                                Rank
+                                Name
                               </div>
                           </th>
                           <th className="th-shinobi-container">
                               <div>
-                                Price $
+                                Missions completed
                               </div>
                           </th>
                           <th className="th-shinobi-container">
                               <div>
-                                Sensei
+                                Students
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+						  <th className="th-shinobi-container">
                               <div>
                                 Description
                               </div>
@@ -124,25 +122,25 @@ export default class Shinobies extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {missions.map((mission, index) => (
+                        {shinobies.map((shinobi, index) => (
                             <tr key={index}>
                               <td className="td-shinobi-container">
                                   <div>
-                                    {mission.rank}
+                                    {shinobi.name}
                                   </div>
                               </td>
                               <td className="td-shinobi-container">
                                   <div>
-                                    {mission.price}
+                                    {shinobi.missionsCompleted}
                                   </div>
                               </td>
                               <td className="td-shinobi-container">
                                   <div>
-                                    {mission.sensei}
+                                    {shinobi.student}
                                   </div>
                               </td>
                               <td className="td-shinobi-container view-description" onClick={this.readMoreClick}>
-                                  <div data-desc={mission.description}>
+                                  <div data-desc={shinobi.student}>
                                     {blankDescriptionTemplate}
                                   </div>
                               </td>
@@ -151,7 +149,7 @@ export default class Shinobies extends Component {
                                       <Button 
                                           bsStyle="info" 
                                           bsSize="large" 
-                                          onClick={() => {this.handleEditShow(mission)}}>
+                                          onClick={() => {this.handleEditShow(shinobi)}}>
                                             Edit
                                       </Button>
                                   </div>
@@ -161,7 +159,7 @@ export default class Shinobies extends Component {
                                       <Button 
                                           bsStyle="danger" 
                                           bsSize="large" 
-                                          onClick={() => {this.deleteMission( mission)}}>
+                                          onClick={() => {this.deleteMission(shinobi)}}>
                                             Delete
                                       </Button>
                                   </div>
