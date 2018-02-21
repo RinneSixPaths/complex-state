@@ -199,6 +199,9 @@ class MissionsView extends Component {
     }
 
     deleteMission (mission) {
+		if (!confirm('Delete mission?')) {
+			return;
+		}
         const payload = {
             user: store.getState().currentUser,
             missionID: mission.id
@@ -218,6 +221,8 @@ class MissionsView extends Component {
             ))
             .then(data => {
                 console.log(data);
+				this.props.setCurrentUser(data);
+                localStorage.setItem('user', JSON.stringify(data));
             });
         this.handleClose();
     }
@@ -225,8 +230,8 @@ class MissionsView extends Component {
     editMission () {
         const payload = {
             user: store.getState().currentUser,
-            oldMissionIndx: this.state.clickedMission.id,
             newMission: {
+				id: this.state.clickedMission.id,
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,
@@ -249,6 +254,8 @@ class MissionsView extends Component {
             ))
             .then(data => {
                 console.log(data);
+				this.props.setCurrentUser(data);
+                localStorage.setItem('user', JSON.stringify(data));
             });
         this.handleClose();
     }

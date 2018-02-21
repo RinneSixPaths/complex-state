@@ -65,13 +65,13 @@ app.post('/addMission', function(req, res) {
 app.post('/updateMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({stage: 'updated'});
+  res.json({name: 'Hokage', isAdmin: true, missions: []});
 });
 
 app.post('/deleteMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
-  res.json({stage: 'deleted'});
+  res.json({name: 'Hokage', isAdmin: true, missions: []});
 });
 
 app.get('/user', function(req, res) {
