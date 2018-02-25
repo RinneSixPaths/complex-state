@@ -7,7 +7,7 @@ import { setCurrentUser } from './redux/actions';
 
 import MainPage from './components/MainPage';
 import Missions from './components/Missions';
-import Shinobies from './components/Shinobies';
+import Profile from './components/Profile';
 
 import "bootstrap/dist/css/bootstrap.css";
 import { ListGroup, ListGroupItem, Grid, Row, Col } from "react-bootstrap";
@@ -31,7 +31,7 @@ export default class App extends Component {
             <Switch>
               <Route exact path='/'  component={MainPage}/>
               <Route exact path='/missions' component={Missions}/>
-              <Route exact path='/shinobies' component={Shinobies}/>
+              <Route exact path='/profile' component={Profile}/>
             </Switch>
         )
     }

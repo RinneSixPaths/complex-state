@@ -263,29 +263,11 @@ class MissionsView extends Component {
     }
 
     generateMissionsExel () {
-        const URL = '/generateMissionsExel';
-        const queryConfig = {
-            method: 'GET'
-        };
-        
-        fetch(URL, queryConfig)
-            .then(response => (response.json()))
-            .then(data => {
-                console.log(data);
-            });
+        window.location = '/generateMissionsExel';
     }
 
     generateMissionsCsv () {
-        const URL = '/generateMissionsCsv';
-        const queryConfig = {
-            method: 'GET'
-        };
-        
-        fetch(URL, queryConfig)
-            .then(response => (response.json()))
-            .then(data => {
-                console.log(data);
-            });
+        window.location = '/generateMissionsCsv';
     }
     
     render() {

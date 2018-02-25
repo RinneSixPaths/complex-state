@@ -20,8 +20,8 @@ export default class Navigator extends Component {
             <nav className="anima-navbar">
                 <Link to={{ pathname: '/'}} className={"redirect-link "+this.props.className}>Main page</Link>
                 <Link to={{ pathname: '/missions'}} className={"redirect-link "+this.props.className}>Missions</Link>
-                <Link to={{ pathname: '/shinobies'}} className={"redirect-link "+this.props.className}>Shinobies</Link>
-                <a href="#" className={this.props.className}>Some page</a>
+                <Link to={{ pathname: '/profile'}} className={"redirect-link "+this.props.className}>Profiles</Link>
+                <a href="#" className={this.props.className}>Shinobies</a>
                 <a href="#" className={"view-footer "+this.props.className}>View authors</a>
             </nav>
         ) 
