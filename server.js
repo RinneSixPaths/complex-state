@@ -26,7 +26,7 @@ var mockMissions = [{
 	rank: 'D',
 	price: '5 $',
 	sensei: 'Shifu',
-	description: 'test'
+	description: 'Test'
 }];
 
 const mockShinobies = [{
@@ -102,6 +102,22 @@ app.post('/register', function(req, res) {
   console.log('got request');
   console.log(req.body.userName);
   res.json({name: 'anton'});
+});
+
+app.post('/addStudent', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockStudents, {
+	name: 'Artem Pishalov',
+	age: 20,
+	senseiName: 'Yoda'
+}]);/*{
+    senseiName: 'Snoke',
+	iq: 1,
+	power: 'Very high ?',
+	rank: 'Very old :P',
+	skills: 'Stupid death master'
+}*/
 });
 
 app.post('/addMission', function(req, res) {

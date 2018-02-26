@@ -35,28 +35,6 @@ import Footer from './Footer/Footer';
 const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
 
-const mockMissions = [{
-    id: 1,
-	rank: 'S',
-	price: '1000 $',
-	stage: 'Done',
-	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
-},
-{
-    id: 2,
-	rank: 'B',
-	price: '100 yen',
-	stage: 'In Progress',
-	description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like'
-},
-{
-    id: 3,
-	rank: 'D',
-	price: '5 $',
-	stage: 'Done',
-	description: 'Test'
-}];
-
 const mockSenseis = ['Yoda', 'Skywalker', 'Snoke', 'Shifu', 'Hiruzen'];
 const mockPrices = [10, 100, 500, 1000, 5000, 10000];
 const mockRanks = ['S', 'A', 'B', 'C', 'D'];
@@ -274,7 +252,7 @@ class MissionsView extends Component {
     
     render() {
 		const missions = this.props.missions || [];
-		const senseis = mockSenseis;
+		const senseis = this.props.senseis || [];
 		const prices = mockPrices;
 		const ranks = mockRanks;
 		
@@ -467,9 +445,9 @@ class MissionsView extends Component {
                                 ))}
                             </DropdownButton>
                             <DropdownButton title="Sensei" bsStyle="default" id="2" bsSize="large">
-                                {senseis.map((item, index) => (
-                                    <MenuItem eventKey={item} key={index} onSelect={this.onSenseiSelect}>
-                                        {item}
+                                {senseis.map((sensei, index) => (
+                                    <MenuItem eventKey={sensei.name} key={index} onSelect={this.onSenseiSelect}>
+                                        {sensei.name}
                                     </MenuItem>
                                 ))}
                             </DropdownButton>

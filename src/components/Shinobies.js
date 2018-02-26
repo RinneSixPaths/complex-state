@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { setStudents } from '../redux/actions';
 
 import mainBg from '../../img/shinobies.jpg';
 
@@ -40,20 +41,101 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCurrentUser: userData => dispatch(setCurrentUser(userData)) //TODO
+		setStudents: students => dispatch(setStudents(students))
     };
 };
 
 class ShinobiesView extends Component {
 	
+	_sensei = '';
+	
     constructor(props) {
         super(props);
+		
+		this.state = {
+            showAddStudent: false,
+			studentName: 'Student Name',
+			studentAge: 12,
+            clickedMission: null
+        };
+		
+		this.handleAddStudentClose = this.handleAddStudentClose.bind(this);
+		this.handleAddStudentShow = this.handleAddStudentShow.bind(this);
+		this.onSenseiSelect = this.onSenseiSelect.bind(this);
+		this.addNewStudent = this.addNewStudent.bind(this);
+		this.addNewStudent = this.addNewStudent.bind(this);
+		this.onStudentNameInput = this.onStudentNameInput.bind(this);
+		this.onStudentAgeInput = this.onStudentAgeInput.bind(this);
     }
     
     componentDidMount() {
         entry();
     }
+	
+	handleAddStudentClose () {
+        this.setState({ 
+			...this.state,
+            showAddStudent: false, 
+            studentName: 'Student Name',
+            studentAge: 12,
+            clickedMission: null //??
+        });
+        this._sensei = '';
+    }
     
+	handleAddStudentShow () {
+		this.setState({
+			...this.state,
+			showAddStudent: true
+		});
+	}
+
+	onSenseiSelect (eventKey, e) {
+        this._sensei = eventKey;
+    }
+
+	addNewStudent () {
+		const payload = {
+            student: {
+                name: this.state.studentName,
+                age: this.state.studentAge,
+                senseiName: this._sensei
+            }
+        };
+        const queryConfig = {
+            method: 'POST', 
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        };
+        
+        fetch('/addStudent', queryConfig)
+            .then(response => (
+                response.json()
+            ))
+            .then(data => {
+                console.log(data);
+				this.props.setStudents(data);
+            });
+        this.handleAddStudentClose();
+	}
+
+	onStudentNameInput (e) {
+		this.setState({
+            ...this.state,
+            studentName: e.target.value
+        });
+	}
+
+	onStudentAgeInput (e) {
+		this.setState({
+            ...this.state,
+            studentAge: e.target.value
+        });
+	}
+	
     render() {
         const shinobies = this.props.senseis;
         const students = this.props.students;
@@ -205,7 +287,7 @@ class ShinobiesView extends Component {
                                           bsStyle="success" 
                                           bsSize="large" 
                                           disabled={!this.props.user.isAdmin}
-                                          onClick={this.handleShow}>
+                                          onClick={this.handleAddStudentShow}>
                                         Add new
                                     </Button>
                                  </div>
@@ -213,7 +295,46 @@ class ShinobiesView extends Component {
 						  </tr>
 						</tbody>
                     </Table>
-                     
+                     <Modal show={this.state.showAddStudent} onHide={this.handleAddStudentClose}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>
+                          Students
+                        </Modal.Title>
+                      </Modal.Header>
+                         <Modal.Body>
+                            <p>
+                              Fill the fields before adding
+                            </p>
+                            <DropdownButton title="Sensei" bsStyle="default" id="2" bsSize="large">
+                                {shinobies.map((sensei, index) => (
+                                    <MenuItem eventKey={sensei.name} key={index} onSelect={this.onSenseiSelect}>
+                                        {sensei.name}
+                                    </MenuItem>
+                                ))}
+                            </DropdownButton>
+							<FormControl
+                                    bsSize="large" 
+                                    type = "text"
+                                    placeholder="Enter Name"
+                                    value = {this.state.studentName}
+                                    onChange={this.onStudentNameInput}>
+                            </FormControl>
+							<FormControl
+                                    bsSize="large" 
+                                    type="number"
+                                    placeholder="Enter Age"
+                                    value = {this.state.studentAge}
+                                    onChange={this.onStudentAgeInput}>
+                            </FormControl>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <Button 
+                                    bsStyle="success" 
+                                    onClick={this.addNewStudent}>
+                                Done
+                            </Button>
+                          </Modal.Footer>
+                    </Modal>
                                         
                     <Table className="table-shinobi-container" responsive>
                       <thead>

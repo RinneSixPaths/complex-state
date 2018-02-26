@@ -31,64 +31,6 @@ import Footer from './Footer/Footer';
 
 const pageColor = 'rgb(255, 143, 31)';
 const blankSkillsTemplate = 'Click to view skills';
-//Min width table
-/*тудент: имя, имя сенсея, возраст 
-профиль: имя сенсея, инт еллект, сила, ранг, возраст, скиллы 
-сенсей: имя, опыт (время), звание*/
-/*const sensei = {
-	name: 'Yoda',
-	experience: 65,
-	profile: profile(
-		name, 
-		'1292', 
-		'Very high',
-		'Master',
-		'Flight'
-	)
-}
-
-const profile = (
-	name, 
-	iq,
-	power, 
-	rank,
-	skills
-) => ({
-	id: 1,
-	senseiName: name,
-	iq: iq,
-	power: power,
-	rank: rank,
-	skills: skills
-});
-
-const student = {
-	name: 'Neji',
-	age: 26,
-	senseiName: 'Yoda'
-}*/
-
-const mockProfiles = [{
-    senseiName: 'Shifu',
-	iq: 124,
-	power: 'Very high',
-	rank: 'Master',
-	skills: 'Can spin chopsticks while eating'
-},
-{
-    senseiName: 'Yoda',
-	iq: 12421,
-	power: 'Very high',
-	rank: 'lol Dead',
-	skills: 'Master of stealing sandwiches'
-},
-{
-    senseiName: 'Skywalker',
-	iq: 14,
-	power: 'Very high',
-	rank: 'Legend',
-	skills: '"Ben Swolo NAAAAAH!!1" screamer'
-}];
 
 const mapStateToProps = state => {
     return { 
