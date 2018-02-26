@@ -42,3 +42,7 @@
 .anima-navbar > .twilight:hover {
     color: rgb(255, 143, 31);
 }
+
+.anima-navbar > .breed:hover {
+    color: rgb(155, 196, 214);
+}

@@ -12,7 +12,16 @@ export default function toDoListReducer(state = initialState, action) {
         case 'REMOVE_CURRENT_USER': {
             return {
                 ...state,
-                currentUser: {}
+                currentUser: { isAdmin: false }
+            }
+        }
+
+        case 'SET_INITIAL_DATA': {
+            return {
+                ...state,
+                senseis: [...action.payload.senseis],
+                students: [...action.payload.students],
+                profiles: [...action.payload.profiles]
             }
         }
         

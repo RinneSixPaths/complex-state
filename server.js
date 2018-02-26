@@ -29,6 +29,60 @@ var mockMissions = [{
 	description: 'test'
 }];
 
+const mockShinobies = [{
+	name: 'Shifu',
+	missionsCompleted: 35,
+	student: 'Po'
+},
+{
+	name: 'Yoda',
+	missionsCompleted: 65,
+	student: 'Sandwich'
+},
+{
+	name: 'Skywalker',
+	missionsCompleted: 25,
+	student: 'Ben Swolo'
+}];
+
+const mockStudents = [{
+	name: 'Po',
+	age: 93,
+	senseiName: 'Shifu'
+},
+{
+	name: 'Sandwich',
+	age: 26,
+	senseiName: 'Yoda'
+},
+{
+	name: 'Ben Swolo',
+	age: 27,
+	senseiName: 'Skywalker'
+}];
+
+const mockProfiles = [{
+    senseiName: 'Shifu',
+	iq: 124,
+	power: 'Very high',
+	rank: 'Master',
+	skills: 'Can spin chopsticks while eating'
+},
+{
+    senseiName: 'Yoda',
+	iq: 12421,
+	power: 'Very high',
+	rank: 'lol Dead',
+	skills: 'Master of stealing sandwiches'
+},
+{
+    senseiName: 'Skywalker',
+	iq: 14,
+	power: 'Very high',
+	rank: 'Legend',
+	skills: '"Ben Swolo NAAAAAH!!1" screamer'
+}];
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
@@ -85,14 +139,23 @@ app.get('/generateMissionsPdf', function(req, res) {
     res.json({generated: 'True'});
 });
 
-app.get('/generateMissionsExel', function(req, res) {
-    console.log('got generate exel request');
+app.get('/generateMissionsExcel', function(req, res) {
+    console.log('got generate excel request');
     res.json({generated: 'True'});
 });
 
 app.get('/generateMissionsCsv', function(req, res) {
     console.log('got generate csv request');
     res.json({generated: 'True'});
+});
+
+app.get('/initialRequest', function(req, res) {
+    console.log('got initial request');
+    res.json({
+        senseis: mockShinobies,
+        students: mockStudents,
+        profiles: mockProfiles
+    });
 });
 
 app.listen(3000, function(err) {

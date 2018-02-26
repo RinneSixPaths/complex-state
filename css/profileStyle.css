@@ -18,28 +18,32 @@ body {
     flex-direction: column;
 }
 
-.table-shinobi-container {
-    background-color: rgba(183, 214, 226, 0.52);
+.table-profile-container {
+    background-color: rgba(255, 187, 128, 0.52);
     font-size: 2em;
     color: black;
 }
 
-.th-shinobi-container {
+.th-profile-container {
     color: black;
 }
 
-.table-shinobi-container:hover {
-    background-color: rgb(183, 214, 226);
+.table-profile-container:hover {
+    background-color: rgba(255, 187, 128, 1);
 }
 
-.td-shinobi-container > div {
+.td-profile-container > div {
     display: flex;
     align-items: center;
     justify-content: center;
     max-width: 600px;
 }
 
-.th-shinobi-container > div {
+.td-add-container > div {
+    max-width: 1500px;
+}
+
+.th-profile-container > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -51,11 +55,11 @@ body {
     justify-content: center;
 }
 
-.td-shinobi-container:hover {
-    background-color: rgb(255, 255, 255);
+.td-profile-container:hover {
+    background-color: rgb(245, 255, 0);
 }
 
-.td-shinobi-container > div > button {
+.td-profile-container > div > button {
     border-radius: 0px;
 }
 

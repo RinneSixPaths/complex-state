@@ -62,7 +62,10 @@ const mockPrices = [10, 100, 500, 1000, 5000, 10000];
 const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 
 const mapStateToProps = state => {
-    return { missions: state.currentUser.missions };
+    return { 
+        missions: state.currentUser.missions,
+        senseis: state.senseis
+    };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -70,8 +73,7 @@ const mapDispatchToProps = dispatch => {
         setCurrentUser: userData => dispatch(setCurrentUser(userData))
     };
 };
-//RETURN UPDATED USER ONLY for this add actions to props
-//Do we need mission Stage?
+
 class MissionsView extends Component {
     
     _sensei = '';
@@ -100,7 +102,7 @@ class MissionsView extends Component {
         this.handleEditShow = this.handleEditShow.bind(this);
         this.deleteMission = this.deleteMission.bind(this);
         this.generateMissionsPdf = this.generateMissionsPdf.bind(this);
-        this.generateMissionsExel = this.generateMissionsExel.bind(this);
+        this.generateMissionsExcel = this.generateMissionsExcel.bind(this);
         this.generateMissionsCsv = this.generateMissionsCsv.bind(this);
     }
     
@@ -262,8 +264,8 @@ class MissionsView extends Component {
 		window.location = '/generateMissionsPdf';
     }
 
-    generateMissionsExel () {
-        window.location = '/generateMissionsExel';
+    generateMissionsExcel () {
+        window.location = '/generateMissionsExcel';
     }
 
     generateMissionsCsv () {
@@ -371,7 +373,7 @@ class MissionsView extends Component {
                         <tr>
                           <th className="th-mission-container">
                               <div>
-                                Exel
+                                Excel
                               </div>
                           </th>
                           <th className="th-mission-container">
@@ -399,8 +401,8 @@ class MissionsView extends Component {
                                               bsStyle="success" 
                                               bsSize="large"       
                                               disabled={!this.props.missions} 
-                                              onClick={this.generateMissionsExel}>
-                                          Exel
+                                              onClick={this.generateMissionsExcel}>
+                                          Excel
                                       </Button>
                                   </div>
                               </td>

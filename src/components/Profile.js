@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router-dom';
 
 import mainBg from '../../img/twilights.jpg';
@@ -10,7 +11,7 @@ import {
     entry 
 } from '../Anima';
 
-import "../../css/shinobiStyle.css";
+import "../../css/profileStyle.css";
 import "../../css/fonts.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { 
@@ -29,8 +30,7 @@ import Navigator from './Navigator/Navigator';
 import Footer from './Footer/Footer';
 
 const pageColor = 'rgb(255, 143, 31)';
-const blankDescriptionTemplate = 'Click to view description';
-const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here, content here, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like';
+const blankSkillsTemplate = 'Click to view skills';
 //Min width table
 /*тудент: имя, имя сенсея, возраст 
 профиль: имя сенсея, инт еллект, сила, ранг, возраст, скиллы 
@@ -68,26 +68,42 @@ const student = {
 	senseiName: 'Yoda'
 }*/
 
-const mockShinobies = [{
-    id: 1,
-	name: 'Yoda',
-	missionsCompleted: 65,
-	student: 'Some desc'
+const mockProfiles = [{
+    senseiName: 'Shifu',
+	iq: 124,
+	power: 'Very high',
+	rank: 'Master',
+	skills: 'Can spin chopsticks while eating'
 },
 {
-    id: 2,
-	name: 'Yoda',
-	missionsCompleted: 65,
-	student: 'Some desc'
+    senseiName: 'Yoda',
+	iq: 12421,
+	power: 'Very high',
+	rank: 'lol Dead',
+	skills: 'Master of stealing sandwiches'
 },
 {
-    id: 3,
-	name: 'Yoda',
-	missionsCompleted: 65,
-	student: 'Some desc'
+    senseiName: 'Skywalker',
+	iq: 14,
+	power: 'Very high',
+	rank: 'Legend',
+	skills: '"Ben Swolo NAAAAAH!!1" screamer'
 }];
 
-export default class Profile extends Component {
+const mapStateToProps = state => {
+    return { 
+        user: state.currentUser,
+        profiles: state.profiles
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setCurrentUser: userData => dispatch(setCurrentUser(userData)) //TODO
+    };
+};
+
+class ProfileView extends Component {
 	
     constructor(props) {
         super(props);
@@ -103,54 +119,59 @@ export default class Profile extends Component {
 		const clickedNode = (e.target.children[0] || e.target);
 		const currentText = clickedNode.textContent;
 		
-		if (currentText == blankDescriptionTemplate) {
-			clickedNode.textContent = description;
+		if (currentText == blankSkillsTemplate) {
+			clickedNode.textContent = clickedNode.getAttribute('data-desc');
 		} else {
-			clickedNode.textContent = blankDescriptionTemplate;
+			clickedNode.textContent = blankSkillsTemplate;
 		}
     }
     
     render() {
-        const shinobies = mockShinobies;
+        const profiles = this.props.profiles;
         return (
             <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
                 <Navigator className="twilight"/>
                 <Header style={ setupHeader(pageColor) }/>
                 <div className="workfield" style={setupBlankBlock()}>
-                    <Table className="table-shinobi-container" responsive>
+                    <Table className="table-profile-container" responsive>
                       <thead>
 						<tr>
-                          <th className="th-shinobi-container table-titile" colSpan="6">
-                              <div>Senseis</div>
+                          <th className="th-profile-container table-titile" colSpan="6">
+                              <div>Profiles</div>
                           </th>
                         </tr>
                         <tr>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
-                                Name
+                                Sensei's Name
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
-                                Missions completed
+                                IQ
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
-                                Students
+                                Power
                               </div>
                           </th>
-						  <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
-                                Description
+                                Skills
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
+                              <div>
+                                Rank
+                              </div>
+                          </th>
+                          <th className="th-profile-container">
                               <div>
                                 Edit
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
                                 Delete
                               </div>
@@ -158,44 +179,51 @@ export default class Profile extends Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {shinobies.map((shinobi, index) => (
+                        {profiles.map((profile, index) => (
                             <tr key={index}>
-                              <td className="td-shinobi-container">
+                              <td className="td-profile-container">
                                   <div>
-                                    {shinobi.name}
+                                    {profile.senseiName}
                                   </div>
                               </td>
-                              <td className="td-shinobi-container">
+                              <td className="td-profile-container">
                                   <div>
-                                    {shinobi.missionsCompleted}
+                                    {profile.iq}
                                   </div>
                               </td>
-                              <td className="td-shinobi-container">
+                              <td className="td-profile-container">
                                   <div>
-                                    {shinobi.student}
+                                    {profile.power}
                                   </div>
                               </td>
-                              <td className="td-shinobi-container view-description" onClick={this.readMoreClick}>
-                                  <div data-desc={shinobi.student}>
-                                    {blankDescriptionTemplate}
+                              <td className="td-profile-container view-description" onClick={this.readMoreClick}>
+                                  <div data-desc={profile.skills}>
+                                    {blankSkillsTemplate}
                                   </div>
                               </td>
-                              <td className="td-shinobi-container">
+                              <td className="td-profile-container">
+                                  <div>
+                                    {profile.rank}
+                                  </div>
+                              </td>
+                              <td className="td-profile-container">
                                   <div>
                                       <Button 
                                           bsStyle="info" 
-                                          bsSize="large" 
-                                          onClick={() => {this.handleEditShow(shinobi)}}>
+                                          bsSize="large"
+                                          disabled={!this.props.user.isAdmin}
+                                          onClick={() => {this.handleEditShow(mission)}}>
                                             Edit
                                       </Button>
                                   </div>
                               </td>
-                              <td className="td-shinobi-container">
+                              <td className="td-profile-container">
                                   <div>
                                       <Button 
                                           bsStyle="danger" 
                                           bsSize="large" 
-                                          onClick={() => {this.deleteMission(shinobi)}}>
+                                          disabled={!this.props.user.isAdmin}
+                                          onClick={() => {this.deleteMission( mission)}}>
                                             Delete
                                       </Button>
                                   </div>
@@ -205,70 +233,70 @@ export default class Profile extends Component {
                       </tbody>
 					  <thead>
                         <tr>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
-                                Exel
+                                Excel
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
                                 PDF
                               </div>
                           </th>
-                          <th className="th-shinobi-container">
+                          <th className="th-profile-container">
                               <div>
                                 CSV
                               </div>
                           </th>
-                          <th className="th-shinobi-container" colSpan="3">
+                          <th className="th-profile-container" colSpan="4">
                               <div>
-                                Add new mission
+                                Add new profile
                               </div>
                           </th>
                         </tr>
                       </thead>
 						<tbody>
 						   <tr>
-							  <td className="td-shinobi-container" >
+							  <td className="td-profile-container" >
                                   <div>
                                       <Button 
                                               bsStyle="success" 
                                               bsSize="large"       
-                                              disabled={!this.props.missions} 
-                                              onClick={this.generateMissionsExel}>
-                                          Exel
+                                              disabled={!this.props.profiles} 
+                                              onClick={this.generateMissionsExcel}>
+                                          Excel
                                       </Button>
                                   </div>
                               </td>
-							  <td className="td-shinobi-container">
+							  <td className="td-profile-container">
                                   <div>
                                     <Button 
                                           bsStyle="danger" 
                                           bsSize="large" 
-                                          disabled={!this.props.missions} 
+                                          disabled={!this.props.profiles} 
                                           onClick={this.generateMissionsPdf}>
                                         PDF
                                     </Button>
                                   </div>
                               </td>
-							  <td className="td-shinobi-container" >
+							  <td className="td-profile-container" >
                                   <div>
                                     <Button 
                                           bsStyle="warning" 
                                           bsSize="large" 
-                                          disabled={!this.props.missions} 
+                                          disabled={!this.props.profiles} 
                                           onClick={this.generateMissionsCsv}>
                                         CSV
                                     </Button>
                                   </div>
                               </td>
-							  <td className="td-shinobi-container" colSpan="3">
+							  <td className="td-profile-container td-add-container" colSpan="4">
 								  <div>
                                     <Button 
                                           bsStyle="success" 
                                           bsSize="large" 
-                                          onClick={this.handleShow} 
-                                          disabled={!this.props.missions}>
+                                          disabled={!this.props.user.isAdmin}
+                                          onClick={this.handleShow}>
                                         Add new
                                     </Button>
                                  </div>
@@ -284,58 +312,5 @@ export default class Profile extends Component {
     }
 }
 
-/*<div className="workfield" style={ setupBlankBlock() }>
-                    <Table className="table-shinobi-container" responsive>
-                      <thead>
-						<tr>
-                          <th className="th-mission-container table-titile" colSpan="6"><div>Shinobies</div></th>
-                        </tr>
-                        <tr>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                          <th className="th-shinobi-container"><div className="centrify-title">Table heading</div></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="warning" bsSize="large">Register</Button></div></td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
-                        <tr>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="warning" bsSize="large">Register</Button></div></td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
-                        <tr>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container"><div>Table cell</div></td>
-                          <td className="td-shinobi-container view-description" onClick={this.readMoreClick}>
-							  <div>
-							  	{blankDescriptionTemplate}
-							  </div>
-						  </td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="warning" bsSize="large">Register</Button></div></td>
-                          <td className="td-shinobi-container"><div><Button bsStyle="danger" bsSize="large">Delete</Button></div></td>
-                        </tr>
-                      </tbody>
-                    </Table>
-                </div>*/
+const Profile = connect(mapStateToProps, mapDispatchToProps)(ProfileView);
+export default Profile;
