@@ -120,6 +120,48 @@ app.post('/addStudent', function(req, res) {
 }*/
 });
 
+app.post('/updateStudent', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockStudents, {
+	name: 'Artem Krrutin',
+	age: 15,
+	senseiName: 'Alekseev PHAHAHA'
+}]);
+});
+
+app.post('/deleteSensei', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([]);
+});
+
+app.post('/addSensei', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockShinobies, {
+	name: 'Shrek',
+	missionsCompleted: 0,
+	student: 'Kek'
+}]);
+});
+
+app.post('/updateSensei', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockShinobies, {
+	name: 'Snoke',
+	missionsCompleted: 34534,
+	student: 'Ben Swolo 2.0'
+}]);
+});
+
+app.post('/deleteStudent', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([]);
+});
+
 app.post('/addMission', function(req, res) {
   console.log('got request');
   console.log(req.body);

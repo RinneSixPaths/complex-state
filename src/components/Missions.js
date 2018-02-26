@@ -339,7 +339,7 @@ class MissionsView extends Component {
                                       <Button 
                                           bsStyle="danger" 
                                           bsSize="large" 
-                                          onClick={() => {this.deleteMission( mission)}}>
+                                          onClick={() => {this.deleteMission(mission)}}>
                                             Delete
                                       </Button>
                                   </div>

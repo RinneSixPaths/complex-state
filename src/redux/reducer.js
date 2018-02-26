@@ -31,6 +31,13 @@ export default function toDoListReducer(state = initialState, action) {
                 students: [...action.payload]
             }
         }
+
+		case 'SET_SENSEIS': {
+            return {
+                ...state,
+                senseis: [...action.payload]
+            }
+        }
         
         default: {
             return state;
