@@ -54,7 +54,7 @@ const mockMissions = [{
 	rank: 'D',
 	price: '5 $',
 	stage: 'Done',
-	description: 'test'
+	description: 'Test'
 }];
 
 const mockSenseis = ['Yoda', 'Skywalker', 'Snoke', 'Shifu', 'Hiruzen'];
