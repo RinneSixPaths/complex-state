@@ -178,7 +178,7 @@ class ShinobiesView extends Component {
 	
 	editStudent () {
 		const payload = {
-            oldStudent: this.state.clickedStudent,
+            id: this.state.clickedStudent.id,
             newStudent: {
                 name: this.state.studentName,
                 age: this.state.studentAge,
@@ -210,7 +210,7 @@ class ShinobiesView extends Component {
 			return;
 		}
         const payload = {
-            student: student
+            id: student.id
         };
         const queryConfig = {
             method: 'POST', 
@@ -318,7 +318,7 @@ class ShinobiesView extends Component {
 	
 	editSensei () {
 		const payload = {
-            oldSensei: this.state.clickedSensei,
+            id: this.state.clickedSensei.id,
             newSensei: {
                 name: this.state.senseiName,
                 missionsCompleted: this.state.senseiMissions,
@@ -350,7 +350,7 @@ class ShinobiesView extends Component {
 			return;
 		}
         const payload = {
-            sensei: sensei
+            id: sensei.id
         };
         const queryConfig = {
             method: 'POST', 

@@ -30,38 +30,45 @@ var mockMissions = [{
 }];
 
 const mockShinobies = [{
+	id: 1,
 	name: 'Shifu',
 	missionsCompleted: 35,
 	student: 'Po'
 },
 {
+	id: 1,
 	name: 'Yoda',
 	missionsCompleted: 65,
 	student: 'Sandwich'
 },
 {
+	id: 1,
 	name: 'Skywalker',
 	missionsCompleted: 25,
 	student: 'Ben Swolo'
 }];
 
 const mockStudents = [{
+	id: 1,
 	name: 'Po',
 	age: 93,
 	senseiName: 'Shifu'
 },
 {
+	id: 1,
 	name: 'Sandwich',
 	age: 26,
 	senseiName: 'Yoda'
 },
 {
+	id: 1,
 	name: 'Ben Swolo',
 	age: 27,
 	senseiName: 'Skywalker'
 }];
 
 const mockProfiles = [{
+	id: 1,
     senseiName: 'Shifu',
 	iq: 124,
 	power: 'Very high',
@@ -69,6 +76,7 @@ const mockProfiles = [{
 	skills: 'Can spin chopsticks while eating'
 },
 {
+	id: 1,
     senseiName: 'Yoda',
 	iq: 12421,
 	power: 'Very high',
@@ -76,6 +84,7 @@ const mockProfiles = [{
 	skills: 'Master of stealing sandwiches'
 },
 {
+	id: 1,
     senseiName: 'Skywalker',
 	iq: 14,
 	power: 'Very high',
@@ -110,6 +119,7 @@ app.post('/addStudent', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockStudents, {
+	id: 1,
 	name: 'Artem Pishalov',
 	age: 20,
 	senseiName: 'Yoda'
@@ -120,6 +130,7 @@ app.post('/updateStudent', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockStudents, {
+	id: 1,
 	name: 'Artem Kirutin',
 	age: 15,
 	senseiName: 'Alekseev PHAHAHA'
@@ -142,6 +153,7 @@ app.post('/addSensei', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockShinobies, {
+	id: 1,
 	name: 'Shrek',
 	missionsCompleted: 0,
 	student: 'Kek'
@@ -152,6 +164,7 @@ app.post('/updateSensei', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockShinobies, {
+	id: 1,
 	name: 'Snoke',
 	missionsCompleted: 34534,
 	student: 'Ben Swolo 2.0'
@@ -162,6 +175,7 @@ app.post('/addProfile', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockProfiles, {
+	id: 1,
     senseiName: 'Snoke',
 	iq: 1,
 	power: 'Very high ?',
@@ -174,6 +188,7 @@ app.post('/updateProfile', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockProfiles, {
+	id: 1,
 	senseiName: 'Kulikov',
 	iq: 890,
 	power: 'Ten tails',
@@ -192,6 +207,7 @@ app.post('/addMission', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json({name: 'Username*', isAdmin: true, missions: [...mockMissions, {
+	    id: 1,
 		id: 4,
 		rank: 'D',
 		price: '300 $',

@@ -35,7 +35,6 @@ import Footer from './Footer/Footer';
 const pageColor = 'rgb(31, 134, 255)';
 const blankDescriptionTemplate = 'Click to view description';
 
-const mockSenseis = ['Yoda', 'Skywalker', 'Snoke', 'Shifu', 'Hiruzen'];
 const mockPrices = [10, 100, 500, 1000, 5000, 10000];
 const mockRanks = ['S', 'A', 'B', 'C', 'D'];
 
@@ -183,7 +182,7 @@ class MissionsView extends Component {
 		}
         const payload = {
             user: store.getState().currentUser,
-            missionID: mission.id
+            id: mission.id
         };
         const queryConfig = {
             method: 'POST', 
@@ -209,8 +208,8 @@ class MissionsView extends Component {
     editMission () {
         const payload = {
             user: store.getState().currentUser,
+			id: this.state.clickedMission.id,
             newMission: {
-				id: this.state.clickedMission.id,
                 rank: this._rank,
                 price: this._price,
                 sensei: this._sensei,

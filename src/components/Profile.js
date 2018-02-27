@@ -197,7 +197,7 @@ class ProfileView extends Component {
 	
 	editProfile () {
 		const payload = {
-            oldProfile: this.state.clickedProfile,
+            id: this.state.clickedProfile.id,
             newProfile: {
                 iq: this.state.iq,
                 power: this.state.power,
@@ -231,7 +231,7 @@ class ProfileView extends Component {
 			return;
 		}
         const payload = {
-            profile: profile
+            id: profile.id
         };
         const queryConfig = {
             method: 'POST', 
