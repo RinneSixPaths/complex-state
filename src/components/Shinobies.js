@@ -59,7 +59,7 @@ class ShinobiesView extends Component {
             showEditStudent: false,
 			studentName: 'Student Name',
 			studentAge: 12,
-            clickedMission: null,
+            clickedStudent: null,
 			showAddSensei: false, 
 			showEditSensei: false, 
             senseiName: 'Sensei Name',

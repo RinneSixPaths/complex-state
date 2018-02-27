@@ -94,13 +94,15 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+//USE f12 + window.store.getState() TO SEE ALL CURRENT DATA
+
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.post('/register', function(req, res) {
   console.log('got request');
-  console.log(req.body.userName);
+  console.log(req.body);
   res.json({name: 'anton'});
 });
 
@@ -111,13 +113,7 @@ app.post('/addStudent', function(req, res) {
 	name: 'Artem Pishalov',
 	age: 20,
 	senseiName: 'Yoda'
-}]);/*{
-    senseiName: 'Snoke',
-	iq: 1,
-	power: 'Very high ?',
-	rank: 'Very old :P',
-	skills: 'Stupid death master'
-}*/
+}]);
 });
 
 app.post('/updateStudent', function(req, res) {
@@ -128,6 +124,12 @@ app.post('/updateStudent', function(req, res) {
 	age: 15,
 	senseiName: 'Alekseev PHAHAHA'
 }]);
+});
+
+app.post('/deleteStudent', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([]);
 });
 
 app.post('/deleteSensei', function(req, res) {
@@ -156,7 +158,31 @@ app.post('/updateSensei', function(req, res) {
 }]);
 });
 
-app.post('/deleteStudent', function(req, res) {
+app.post('/addProfile', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockProfiles, {
+    senseiName: 'Snoke',
+	iq: 1,
+	power: 'Very high ?',
+	rank: 'Very old :P',
+	skills: 'Master of stupid death'
+}]);
+});
+
+app.post('/updateProfile', function(req, res) {
+  console.log('got request');
+  console.log(req.body);
+  res.json([...mockProfiles, {
+	senseiName: 'Kulikov',
+	iq: 890,
+	power: 'Ten tails',
+	rank: 'Great epam conqueror',
+	skills: 'Read the "Real skills and how to use it" by Svyatoslav Kulikov and think about it'
+}]);
+});
+
+app.post('/deleteProfile', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([]);
@@ -234,6 +260,21 @@ app.get('/generateSenseisExcel', function(req, res) {
 
 app.get('/generateSenseisCsv', function(req, res) {
     console.log('got generate Senseis csv request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateProfilesPdf', function(req, res) {
+    console.log('got generate Profiles pdf request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateProfilesExcel', function(req, res) {
+    console.log('got generate Profiles excel request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateProfilesCsv', function(req, res) {
+    console.log('got generate Profiles csv request');
     res.json({generated: 'True'});
 });
 

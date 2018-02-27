@@ -39,6 +39,13 @@ export default function toDoListReducer(state = initialState, action) {
             }
         }
         
+        case 'SET_PROFILES': {
+            return {
+                ...state,
+                profiles: [...action.payload]
+            }
+        }
+    
         default: {
             return state;
         }
