@@ -16,6 +16,8 @@ import Footer from './Footer/Footer';
 import LogIn from './LogIn/LogIn';
 import LogOut from './LogOut/LogOut';
 
+import { getValue, cleanFields } from '../helpers';
+
 const pageColor = 'rgb(0, 180, 195)';
 
 const mapStateToProps = state => {
@@ -23,6 +25,8 @@ const mapStateToProps = state => {
 };
 
 class MainPageView extends Component {
+    
+    _ids = ['name-input', 'pass-input', 'confirm-input'];
     
     constructor(props) {
         super(props);
@@ -35,9 +39,23 @@ class MainPageView extends Component {
     }
     
     register() {
+        const name = getValue('name-input');
+        const password = getValue('pass-input');
+        const confirmPassword = getValue('confirm-input');
+        
+        if (!name || !password || !confirmPassword) {
+            alert('Fill all fields');
+            cleanFields(this._ids);
+            return;
+        }
+        if (password !== confirmPassword) {
+            alert('Passwords are wrong');
+            cleanFields(this._ids);
+            return;
+        }
         const payload = {
-            name: 'Name',
-            password: '123',
+            name: name,
+            password: password,
             isAdmin: false,
             missions: []
         };
@@ -53,16 +71,17 @@ class MainPageView extends Component {
         fetch('/register', queryConfig)
              .then(response => (response.json()))
              .then(data => {
-                 console.log(data);
+                console.log(data);
+                cleanFields(this._ids);
              });
     }
     
     render() {
         
         return (
-                <div className="main-bg-wrapper" style={ setupMainBg(mainBg) }>
+                <div className="main-bg-wrapper" style={setupMainBg(mainBg)}>
                     <Navigator className="main"/>
-                    <Header style={ setupHeader(pageColor) }/>
+                    <Header style={setupHeader(pageColor)}/>
                     <div className="anima-wrapper">                
                         <p className="greetings" >Rinne Six Paths</p>
                         <span className="customer-wrapper">
@@ -76,16 +95,19 @@ class MainPageView extends Component {
                             <h1 className="enter-title">Register</h1>
                             <div className="log-in-wrapper">
                                 <FormControl 
+                                    id="name-input"
                                     bsSize="large" 
                                     type = "text"
                                     placeholder="Enter your name">
                                 </FormControl>
                                 <FormControl
+                                    id="pass-input"
                                     bsSize="large" 
                                     type = "password"
                                     placeholder="Enter your password">
                                 </FormControl>
                                 <FormControl
+                                    id="confirm-input"
                                     bsSize="large" 
                                     type = "password"
                                     placeholder="Confirm your password">

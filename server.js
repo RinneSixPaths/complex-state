@@ -214,7 +214,7 @@ app.post('/deleteMission', function(req, res) {
 
 app.get('/user', function(req, res) {
     console.log('got user-request');
-    console.log(req.query.username);
+    console.log(req.query);
     res.json({name: 'Username*', isAdmin: true, missions: mockMissions});
 });
 
