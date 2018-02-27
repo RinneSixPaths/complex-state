@@ -124,7 +124,7 @@ app.post('/updateStudent', function(req, res) {
   console.log('got request');
   console.log(req.body);
   res.json([...mockStudents, {
-	name: 'Artem Krrutin',
+	name: 'Artem Kirutin',
 	age: 15,
 	senseiName: 'Alekseev PHAHAHA'
 }]);
@@ -204,6 +204,36 @@ app.get('/generateMissionsExcel', function(req, res) {
 
 app.get('/generateMissionsCsv', function(req, res) {
     console.log('got generate csv request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateStudentsPdf', function(req, res) {
+    console.log('got generate Students pdf request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateStudentsExcel', function(req, res) {
+    console.log('got generate Students excel request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateStudentsCsv', function(req, res) {
+    console.log('got generate Students csv request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateSenseisPdf', function(req, res) {
+    console.log('got generate Senseis pdf request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateSenseisExcel', function(req, res) {
+    console.log('got generate Senseis excel request');
+    res.json({generated: 'True'});
+});
+
+app.get('/generateSenseisCsv', function(req, res) {
+    console.log('got generate Senseis csv request');
     res.json({generated: 'True'});
 });
 

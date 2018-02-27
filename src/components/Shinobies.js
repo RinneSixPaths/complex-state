@@ -276,11 +276,11 @@ class ShinobiesView extends Component {
 
 	addNewSensei () {
 		const payload = {
-            /*student: {
-                name: this.state.studentName,
-                age: this.state.studentAge,
-                senseiName: this._sensei
-            }*/
+            sensei: {
+                name: this.state.senseiName,
+                missionsCompleted: this.state.senseiMissions,
+                student: this._student
+            }
         };
         const queryConfig = {
             method: 'POST', 
@@ -318,12 +318,12 @@ class ShinobiesView extends Component {
 	
 	editSensei () {
 		const payload = {
-            /*oldStudent: this.state.clickedStudent,
-            newStudent: {
-                name: this.state.studentName,
-                age: this.state.studentAge,
-                senseiName: this.state.clickedStudent.senseiName
-            }*/
+            oldSensei: this.state.clickedSensei,
+            newSensei: {
+                name: this.state.senseiName,
+                missionsCompleted: this.state.senseiMissions,
+                student: this.state.clickedSensei.student
+            }
         };
         const queryConfig = {
             method: 'POST', 
@@ -350,7 +350,7 @@ class ShinobiesView extends Component {
 			return;
 		}
         const payload = {
-            //student: student
+            sensei: sensei
         };
         const queryConfig = {
             method: 'POST', 
@@ -371,6 +371,30 @@ class ShinobiesView extends Component {
             });
         this.handleAddSenseiClose();
 	}
+
+    generateStudentsPdf () {
+		window.location = '/generateStudentsPdf';
+    }
+
+    generateStudentsExcel () {
+        window.location = '/generateStudentsExcel';
+    }
+
+    generateStudentsCsv () {
+        window.location = '/generateStudentsCsv';
+    }
+
+    generateSenseisPdf () {
+		window.location = '/generateSenseisPdf';
+    }
+
+    generateSenseisExcel () {
+        window.location = '/generateSenseisExcel';
+    }
+
+    generateSenseisCsv () {
+        window.location = '/generateSenseisCsv';
+    }
 
     render() {
         const shinobies = this.props.senseis;
@@ -490,7 +514,7 @@ class ShinobiesView extends Component {
                                               bsStyle="success" 
                                               bsSize="large"       
                                               disabled={!this.props.senseis}
-                                              onClick={this.generateMissionsExcel}>
+                                              onClick={this.generateStudentsExcel}>
                                           Excel
                                       </Button>
                                   </div>
@@ -501,7 +525,7 @@ class ShinobiesView extends Component {
                                           bsStyle="danger" 
                                           bsSize="large" 
                                           disabled={!this.props.senseis}
-                                          onClick={this.generateMissionsPdf}>
+                                          onClick={this.generateStudentsPdf}>
                                         PDF
                                     </Button>
                                   </div>
@@ -512,7 +536,7 @@ class ShinobiesView extends Component {
                                           bsStyle="warning" 
                                           bsSize="large" 
                                           disabled={!this.props.senseis}
-                                          onClick={this.generateMissionsCsv}>
+                                          onClick={this.generateStudentsCsv}>
                                         CSV
                                     </Button>
                                   </div>
@@ -716,7 +740,7 @@ class ShinobiesView extends Component {
                                               bsStyle="success" 
                                               bsSize="large"       
                                               disabled={!this.props.students} 
-                                              onClick={this.generateMissionsExcel}>
+                                              onClick={this.generateSenseisExcel}>
                                           Excel
                                       </Button>
                                   </div>
@@ -727,7 +751,7 @@ class ShinobiesView extends Component {
                                           bsStyle="danger" 
                                           bsSize="large" 
                                           disabled={!this.props.students} 
-                                          onClick={this.generateMissionsPdf}>
+                                          onClick={this.generateSenseisPdf}>
                                         PDF
                                     </Button>
                                   </div>
@@ -738,7 +762,7 @@ class ShinobiesView extends Component {
                                           bsStyle="warning" 
                                           bsSize="large" 
                                           disabled={!this.props.students}
-                                          onClick={this.generateMissionsCsv}>
+                                          onClick={this.generateSenseisCsv}>
                                         CSV
                                     </Button>
                                   </div>
