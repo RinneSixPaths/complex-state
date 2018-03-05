@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setProfiles } from '../redux/actions';
+import { 
+	setProfiles, 
+	setCurrentUser, 
+	setStudents,
+	setSenseis 
+} from '../redux/actions';
 
 import mainBg from '../../img/twilights.jpg';
 
@@ -42,7 +47,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setProfiles: profiles => dispatch(setProfiles(profiles))
+        setProfiles: profiles => dispatch(setProfiles(profiles)),
+		setCurrentUser: userData => dispatch(setCurrentUser(userData)),
+		setStudents: students => dispatch(setStudents(students)),
+		setSenseis: senseis => dispatch(setSenseis(senseis))
     };
 };
 
@@ -76,10 +84,28 @@ class ProfileView extends Component {
 		this.onRankInput = this.onRankInput.bind(this);
 		this.editProfile = this.editProfile.bind(this);
 		this.deleteProfile = this.deleteProfile.bind(this);
+		this.getData = this.getData.bind(this);
     }
     
     componentDidMount() {
         entry();
+    }
+
+	getData() {
+        const URL = `/data?name=${this.props.user.name}`;
+        const queryConfig = {
+            method: 'GET'
+        };
+        
+        fetch(URL, queryConfig)
+            .then(response => (response.json()))
+            .then(data => {
+                console.log(data);
+                this.props.setCurrentUser(data.user);
+                this.props.setProfiles(data.profiles);
+                this.props.setStudents(data.students);
+                this.props.setSenseis(data.senseis);
+            });
     }
     
     readMoreClick(e) {
@@ -162,7 +188,8 @@ class ProfileView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setProfiles(data);
+				//this.props.setProfiles(data);
+				this.getData();
             });
         this.handleAddClose();
 	}
@@ -221,7 +248,8 @@ class ProfileView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setProfiles(data);
+				//this.props.setProfiles(data);
+				this.getData();
             });
         this.handleEditClose();
 	}
@@ -248,7 +276,8 @@ class ProfileView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setProfiles(data);
+				this.getData();
+				//this.props.setProfiles(data);
             });
         this.handleAddClose();
 	}

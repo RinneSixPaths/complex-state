@@ -15,9 +15,9 @@ export default class Footer extends Component {
     render() {
         return (
             <footer className="footer">
-                <span>Designed by <span>Rinne</span></span>
+                <span>Frontend by <span>Anton</span></span>
                 <span>Backend by <span>Artem</span></span>
-                <span>Nothing by <span>Lesha</span></span>
+                <span>Testing by <span>Lesha</span></span>
             </footer>
         ) 
     }

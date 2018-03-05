@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setStudents, setSenseis } from '../redux/actions';
+import { 
+	setProfiles, 
+	setCurrentUser, 
+	setStudents,
+	setSenseis 
+} from '../redux/actions';
 
 import mainBg from '../../img/shinobies.jpg';
 
@@ -41,6 +46,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+		setProfiles: profiles => dispatch(setProfiles(profiles)),
+		setCurrentUser: userData => dispatch(setCurrentUser(userData)),
 		setStudents: students => dispatch(setStudents(students)),
 		setSenseis: senseis => dispatch(setSenseis(senseis))
     };
@@ -88,10 +95,29 @@ class ShinobiesView extends Component {
 		this.onSenseiMissionsInput = this.onSenseiMissionsInput.bind(this);
 		this.editSensei = this.editSensei.bind(this);
 		this.deleteSensei = this.deleteSensei.bind(this);
+		
+		this.getData = this.getData.bind(this);
     }
     
     componentDidMount() {
         entry();
+    }
+
+	getData() {
+        const URL = `/data?name=${this.props.user.name}`;
+        const queryConfig = {
+            method: 'GET'
+        };
+        
+        fetch(URL, queryConfig)
+            .then(response => (response.json()))
+            .then(data => {
+                console.log(data);
+                this.props.setCurrentUser(data.user);
+                this.props.setProfiles(data.profiles);
+                this.props.setStudents(data.students);
+                this.props.setSenseis(data.senseis);
+            });
     }
 	
 	handleAddStudentClose () {
@@ -157,7 +183,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setStudents(data);
+				//this.props.setStudents(data);
+				this.getData();
             });
         this.handleAddStudentClose();
 	}
@@ -200,7 +227,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setStudents(data);
+				//this.props.setStudents(data);
+				this.getData();
             });
         this.handleEditStudentClose();
 	}
@@ -227,7 +255,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setStudents(data);
+				//this.props.setStudents(data);
+				this.getData();
             });
         this.handleAddStudentClose();
 	}
@@ -297,7 +326,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setSenseis(data); //TODO
+				//this.props.setSenseis(data); //TODO
+				this.getData();
             });
         this.handleAddSenseiClose();
 	}
@@ -340,7 +370,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setSenseis(data);
+				//this.props.setSenseis(data);
+				this.getData();
             });
         this.handleEditSenseiClose();
 	}
@@ -367,7 +398,8 @@ class ShinobiesView extends Component {
             ))
             .then(data => {
                 console.log(data);
-				this.props.setSenseis(data);
+				//this.props.setSenseis(data);
+				this.getData();
             });
         this.handleAddSenseiClose();
 	}
@@ -558,7 +590,7 @@ class ShinobiesView extends Component {
                      <Modal show={this.state.showAddStudent} onHide={this.handleAddStudentClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>
-                          Students
+                          Student
                         </Modal.Title>
                       </Modal.Header>
                          <Modal.Body>
@@ -599,7 +631,7 @@ class ShinobiesView extends Component {
 					<Modal show={this.state.showEditStudent} onHide={this.handleEditStudentClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>
-                          Students
+                          Student
                         </Modal.Title>
                       </Modal.Header>
                          <Modal.Body>
@@ -785,7 +817,7 @@ class ShinobiesView extends Component {
 					<Modal show={this.state.showAddSensei} onHide={this.handleAddSenseiClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>
-                          Students
+                          Sensei
                         </Modal.Title>
                       </Modal.Header>
                          <Modal.Body>
@@ -826,7 +858,7 @@ class ShinobiesView extends Component {
 					<Modal show={this.state.showEditSensei} onHide={this.handleEditSenseiClose}>
                       <Modal.Header closeButton>
                         <Modal.Title>
-                          Students
+                          Sensei
                         </Modal.Title>
                       </Modal.Header>
                          <Modal.Body>

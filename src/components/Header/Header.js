@@ -23,7 +23,7 @@ class HeaderView extends Component {
     render() {
         return (
             <header className="header" style={ this.props.style || {} }>
-                <p className="logo-text" >{this.props.userName || 'Rinne Six Paths'}</p>
+                <p className="logo-text" >{this.props.userName || 'Ninja academy'}</p>
                 <img src={menuIcon} className="menu-icon"/>
             </header>
         ) 

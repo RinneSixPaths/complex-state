@@ -234,6 +234,18 @@ app.get('/user', function(req, res) {
     res.json({name: 'Username*', isAdmin: true, missions: mockMissions});
 });
 
+app.get('/data', function(req, res) {
+    console.log('got Data request');
+    console.log(req.query);
+    res.json({
+		user: {name: 'Username*', isAdmin: true, missions: mockMissions},
+		profiles: mockProfiles,
+		senseis: mockShinobies,
+		students: mockStudents
+	});
+});
+
+
 app.get('/generateMissionsPdf', function(req, res) {
     console.log('got generate pdf request');
     res.json({generated: 'True'});

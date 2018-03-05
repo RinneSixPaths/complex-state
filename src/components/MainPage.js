@@ -83,7 +83,7 @@ class MainPageView extends Component {
                     <Navigator className="main"/>
                     <Header style={setupHeader(pageColor)}/>
                     <div className="anima-wrapper">                
-                        <p className="greetings" >Rinne Six Paths</p>
+                        <p className="greetings" >Ninja academy</p>
                         <span className="customer-wrapper">
                             <span className="customer-text" >Become our lovely customer</span>
                             <span className="swipe-text">Wheel to enter</span>

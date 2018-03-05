@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Router, Route, Link } from 'react-router-dom';
 import { store } from '../redux/store';
-import { setCurrentUser } from '../redux/actions';
+import { 
+	setProfiles, 
+	setCurrentUser, 
+	setStudents,
+	setSenseis 
+} from '../redux/actions';
 
 import mainBg from '../../img/night.jpg';
 import swipe from '../../img/swipe.png';
@@ -47,7 +52,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCurrentUser: userData => dispatch(setCurrentUser(userData))
+        setProfiles: profiles => dispatch(setProfiles(profiles)),
+		setCurrentUser: userData => dispatch(setCurrentUser(userData)),
+		setStudents: students => dispatch(setStudents(students)),
+		setSenseis: senseis => dispatch(setSenseis(senseis))
     };
 };
 
@@ -86,7 +94,7 @@ class MissionsView extends Component {
     componentDidMount () {
         entry();
     }
-	
+
 	readMoreClick (e) {
 		const clickedNode = (e.target.children[0] || e.target);
 		const currentText = clickedNode.textContent;
